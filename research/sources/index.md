@@ -261,3 +261,35 @@ https://w.atwiki.jp/poke14/pages/102.html
 
 魔球編トゥルー済み（アルバムNo.3）が「#4: ジオット」の発生条件。
 分類：`EVENT-RECORDED`。
+
+# 追加：媒体横断インタビュー
+
+詳細は `media-interviews.md`。
+
+- ファミ通 2021 開発者インタビュー：https://www.famitsu.com/news/202103/04215281.html
+- ファミ通 2021 R山本P：https://www.famitsu.com/news/202111/25241774.html
+- 電撃 2021 パワポケコラボ：https://dengekionline.com/articles/68920/
+- 電撃 2019 山本拓氏：https://dengekionline.com/articles/12406/
+- インサイド 2021 R試遊/Q&A：https://www.inside-games.jp/article/2021/11/25/135454.html
+- EnterJam 2021 山本P：https://enterjam.com/archives/280537
+- Nintendo DREAM 2022年2月号：山本Pインタビュー＋しつもんコ～ナ～R（書誌確認）
+- コンプティーク 2022年1月号：スタッフ座談会（紙面回収優先）
+
+# 追加：公式書籍
+
+## パワプロクンポケット大全
+国立国会図書館書誌：https://ndlsearch.ndl.go.jp/books/R100000002-I000004202544
+2003年8月、335頁、ISBN 9784775301715。
+開発者インタビュー、世界観、メインストーリー、アナザーストーリー、キャラクター、大事典を収録。
+
+
+
+# Nintendo DREAM — R復活期
+- 2021年11月号：https://www.ndw.jp/nd2111-330/
+- 2022年1月号：https://www.ndw.jp/nd2201-332/
+- 2022年2月号：https://www.ndw.jp/nd2202-333/
+- 2022年3月号：https://www.ndw.jp/nd2203-334/
+
+# 14リセット座談会補助
+- 現存転記：https://sukaipenatu.blog34.fc2.com/blog-entry-278.html
+- 動画存在確認：https://www.nicozon.net/watch/sm16423458

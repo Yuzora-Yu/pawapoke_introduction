@@ -1,14 +1,457 @@
 {
-  "pacardy": {"name":"パカーディ・ハイネン","first":"12","summary":"『12』の彼女候補。政治・復讐・ジオット周辺の裏社会へ深く接続する。"},
-  "shian": {"name":"神条紫杏","first":"10","summary":"『10』の彼女候補。後作では巨大企業の合併・ツナミ成立へ接続する。"},
-  "michio": {"name":"大神美智男","first":"4","summary":"大神博之の父として『4』で初登場する大資本家。後のオオガミ・6人組史の中心。"},
-  "hiroyuki": {"name":"大神博之","first":"4","summary":"『4』で転校してくる超高校級投手。後にプロ選手、企業側の重要人物へ。"},
-  "inui": {"name":"犬井灰根","first":"11","summary":"後期の最強格アンドロイド。『8』の灰原とは別人だが、旧公式Q&A転記では同じ遺伝子とされる。"},
-  "k": {"name":"ミスターK","first":"後期","summary":"未来から来た人物として整理される『6人組』の創設者。全員を未来人扱いしない。"},
-  "gio": {"name":"ジオット・セヴェルス","first":"12","summary":"後期ジャジメント、復讐、カタストロフの中心人物。14では表トゥルー後に裏側へも接触。"},
-  "hongfu": {"name":"ホンフー","first":"後期","summary":"超能力系の最強格。暗殺者時代や恋人を救えなかった過去、ジオットとの関係が深い。"},
-  "teraoka": {"name":"寺岡薫","first":"3","summary":"『3』の科学者・彼女候補。開発者発言上、『12』ラスボスへ9作品越しにつながる重要人物。"},
-  "deus": {"name":"デウエス","first":"12","summary":"『12』表サクセスの黒幕・最終ボス。寺岡薫との連続性が重要。"},
-  "red": {"name":"レッド","first":"7","summary":"『7』のヒーロー。『9』主人公との同一人物説は強く示唆されるが公式は未確定。"},
-  "happiness_herb": {"name":"しあわせ草","first":"6","summary":"『6』しあわせ島の人体実験から『10』親切高校の超能力者開発へつながる重要物質。"}
+  "pacardy": {
+    "name": "パカーディ・ハイネン",
+    "first": "12",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『12』の彼女候補。カエサリオン一族の生き残りで、復讐・政治・ジオット周辺の裏社会へ深く接続する。"
+  },
+  "shian": {
+    "name": "神条紫杏",
+    "first": "10",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『10』の彼女候補・親切高校の自治会長。後にジャジメント日本支部長となり、巨大組織の合併とツナミ成立へ接続する。"
+  },
+  "iori": {
+    "name": "野崎維織",
+    "first": "9",
+    "category": "character",
+    "spoiler": "medium",
+    "summary": "『9』の彼女候補。NOZAKIグローバルシステムの社長令嬢。無口で掴みづらい天才肌で、主人公の自由な生き方に影響を受ける。"
+  },
+  "michio": {
+    "name": "大神美智男",
+    "first": "4",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "大神博之の父として『4』で初登場する大資本家。オオガミの巨大化と後期の歴史改変計画を語る中心人物。"
+  },
+  "hiroyuki": {
+    "name": "大神博之",
+    "first": "4",
+    "category": "character",
+    "spoiler": "medium",
+    "summary": "『4』で日の出高校へ転校してくる超高校級投手。プロ選手を経て、後にはオオガミ／ツナミ側の重要人物になる。"
+  },
+  "inui": {
+    "name": "犬井灰根",
+    "first": "11",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "後期シリーズの最強格アンドロイド。『8』の灰原とは別個体だが、旧公式Q&Aの現存転記では同じ遺伝子とされる。"
+  },
+  "haibara": {
+    "name": "灰原",
+    "first": "8",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『8』でCCRの捜査官を指揮する人物。犬井灰根とは別個体だが、同じ遺伝子を用いた技術的な系譜にある。"
+  },
+  "k": {
+    "name": "ミスターK",
+    "first": "後期",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "未来から来た人物として整理される『6人組』の創設者。歴史改変と世界勢力の統合構想を語る中心人物。"
+  },
+  "gio": {
+    "name": "ジオット・セヴェルス",
+    "first": "12（言及は11）",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "後期ジャジメントの中心人物。復讐、一撃計画の転換、カタストロフ、そして『14』の表と裏の接続を担う。"
+  },
+  "hongfu": {
+    "name": "ホンフー（巫紅虎）",
+    "first": "後期",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "元・九百龍の暗殺者として整理される超能力者。世界最強級の戦闘力を持つ一方、救えなかった恋人への後悔を抱え続ける。"
+  },
+  "teraoka": {
+    "name": "寺岡薫",
+    "first": "3",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "『3』の科学者・彼女候補。ワギリバッテリーと電子生命体を介し、はるか後の『12』の核心へつながる。"
+  },
+  "deus": {
+    "name": "デウエス",
+    "first": "12",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "『12』表サクセスの黒幕・最終ボス。寺岡薫の脳回路から生じた電子生命体として整理され、オカルトテクノロジーも用いる。"
+  },
+  "kaoru_e": {
+    "name": "カオル",
+    "first": "12",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "『12』の電脳世界で主人公が出会う電子生命体。寺岡薫との関係が、デウエスと対をなす重要な設定。"
+  },
+  "red": {
+    "name": "レッド",
+    "first": "7",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『7』のポケレンジャーの中心人物。『9』主人公との同一人物説は極めて有名だが、公式側は明言していない。"
+  },
+  "black": {
+    "name": "ブラック",
+    "first": "7",
+    "category": "character",
+    "spoiler": "medium",
+    "summary": "ポケレンジャーの一人。後作でもヒーロー側の重要人物として活動し、超常戦力の基準としてしばしば名前が挙がる。"
+  },
+  "pink": {
+    "name": "ピンク",
+    "first": "7",
+    "category": "character",
+    "spoiler": "medium",
+    "summary": "ポケレンジャーの一人。後作でも登場し、超能力者やツナミをめぐる戦いへ関わる。"
+  },
+  "kazuna": {
+    "name": "大江和那",
+    "first": "10",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『10』の彼女候補。親切高校の実験を経て重力方向を操作する超能力へ本格覚醒し、後作ではヒーロー側の主力となる。"
+  },
+  "airraid": {
+    "name": "エアレイド",
+    "first": "後期",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "空気を操る具現化存在。ジオットの復讐史と強く結びつき、後期ジャジメントの最上位戦力の一角。"
+  },
+  "harmless": {
+    "name": "ハームレス",
+    "first": "14（前振りは13）",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "雨崎千羽矢の細胞をもとに作られた存在として登場。驚異的な再生能力を持ち、ジオット直属の戦力となる。"
+  },
+  "magenta": {
+    "name": "マゼンタ",
+    "first": "12裏",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "裏サクセス側で先に登場し、後に表世界へも姿を見せる人物。表と裏の境界が一方向ではないことを示す例。"
+  },
+  "jinaida": {
+    "name": "ジナイダ",
+    "first": "13",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "カエサリオン由来のサイボーグとして登場。後期の組織史と科学技術史をつなぐ戦闘要員。"
+  },
+  "propeller": {
+    "name": "プロペラ団",
+    "first": "1",
+    "category": "organization",
+    "spoiler": "medium",
+    "summary": "『1』〜『3』を貫く初期の秘密組織。崩壊後も技術・資産・人脈が後世へ影響を残す。"
+  },
+  "ogami": {
+    "name": "オオガミ",
+    "first": "5（前史は4）",
+    "category": "organization",
+    "spoiler": "high",
+    "summary": "大神美智男を中心に巨大化した企業勢力。プロペラ団後の技術・資本を受け継ぐ存在として後半史の土台になる。"
+  },
+  "judgment": {
+    "name": "ジャジメント",
+    "first": "後期",
+    "category": "organization",
+    "spoiler": "high",
+    "summary": "世界規模の巨大資本勢力。オオガミとの抗争・合併を経てツナミへ再編され、のちに再び同名を名乗る時期がある。"
+  },
+  "tsunami": {
+    "name": "ツナミ",
+    "first": "11",
+    "category": "organization",
+    "spoiler": "critical",
+    "summary": "オオガミと当時のジャジメントを含む巨大再編の結果成立する組織。『6人組』の世界統合構想と強く結びつく。"
+  },
+  "six": {
+    "name": "6人組",
+    "first": "11深部",
+    "category": "organization",
+    "spoiler": "critical",
+    "summary": "シリーズ後半の歴史改変を語る核心集団。『6人の未来人』ではなく、未来人ミスターKを中心に現代側の人物も含む。"
+  },
+  "caesarion": {
+    "name": "カエサリオン",
+    "first": "10周辺",
+    "category": "organization",
+    "spoiler": "high",
+    "summary": "地中海系の巨大資本グループ。パカーディとジオット双方の過去に深く関わり、復讐の連鎖の中心にある。"
+  },
+  "jiubailong": {
+    "name": "九百龍",
+    "first": "10周辺",
+    "category": "organization",
+    "spoiler": "high",
+    "summary": "中華系の巨大資本グループ。旧支配者の一角で、ホンフーや呉殺手の過去を理解する鍵。"
+  },
+  "old_rulers": {
+    "name": "旧支配者",
+    "first": "10周辺",
+    "category": "organization",
+    "spoiler": "high",
+    "summary": "ジャジメント・カエサリオン・九百龍など、オオガミ台頭以前から世界経済へ大きな影響を持っていた資本勢力の総称。"
+  },
+  "ccr": {
+    "name": "CCR（サイボーグ対策室）",
+    "first": "8",
+    "category": "organization",
+    "spoiler": "critical",
+    "summary": "違法サイボーグを摘発する秘密組織として登場するが、その実態はオオガミの技術実験と深く結びついている。"
+  },
+  "bb": {
+    "name": "BB団",
+    "first": "6しあわせ島",
+    "category": "organization",
+    "spoiler": "medium",
+    "summary": "しあわせ島を支配する武装組織。強制労働と人体実験を通じ、しあわせ草の研究を後世へ残す。"
+  },
+  "wagiri": {
+    "name": "ワギリバッテリー",
+    "first": "3周辺",
+    "category": "technology",
+    "spoiler": "high",
+    "summary": "寺岡薫の研究に端を発する高性能エネルギー技術。未来の社会構造そのものを変えるほどの影響を持つ。"
+  },
+  "happiness_herb": {
+    "name": "しあわせ草",
+    "first": "6",
+    "category": "technology",
+    "spoiler": "high",
+    "summary": "しあわせ島に由来する重要物質。身体能力強化や人体実験を経て、『10』の超能力者開発へ開発上・物語上の橋を作る。"
+  },
+  "science": {
+    "name": "科学系能力",
+    "first": "全般",
+    "category": "power",
+    "spoiler": "low",
+    "summary": "サイボーグ、アンドロイド、電子生命体、兵器など、技術によって成立する力。パワポケの超常要素の大きな柱。"
+  },
+  "esp": {
+    "name": "超能力",
+    "first": "複数作品",
+    "category": "power",
+    "spoiler": "medium",
+    "summary": "人間が発現する異能の一系統。『10』以降は実験による超能力者開発が前景化し、後期の戦力構造を変える。"
+  },
+  "manifestation": {
+    "name": "具現化",
+    "first": "名称は12、主題化は14",
+    "category": "power",
+    "spoiler": "critical",
+    "summary": "願い・思い込み・恐怖などの心が現実化する現象。ポケレンジャー、魔人、魔球、エアレイドなどを理解する鍵。"
+  },
+  "occult": {
+    "name": "オカルト",
+    "first": "複数作品",
+    "category": "power",
+    "spoiler": "medium",
+    "summary": "科学・超能力・具現化のいずれにも収まらない力の整理カテゴリ。呪い・魔法・オカルトテクノロジーなどを含む。"
+  },
+  "mana": {
+    "name": "マナ",
+    "first": "裏世界／後期表",
+    "category": "power",
+    "spoiler": "critical",
+    "summary": "魔力・具現化をめぐって登場する概念。裏サクセス側と『14』表の設定が接近するうえで重要なキーワード。"
+  },
+  "dream_machine": {
+    "name": "ドリームマシン",
+    "first": "14",
+    "category": "technology",
+    "spoiler": "critical",
+    "summary": "『14』で具現化を大規模に促進する装置。ジオットが人為的カタストロフを進める中心技術。"
+  },
+  "peacemaker": {
+    "name": "ピースメーカー",
+    "first": "13周辺",
+    "category": "power",
+    "spoiler": "critical",
+    "summary": "カタストロフを起こし得る存在として後期に語られる重要概念。ジオットの計画変更を理解する鍵。"
+  },
+  "catastrophe": {
+    "name": "カタストロフ",
+    "first": "11以降",
+    "category": "concept",
+    "spoiler": "critical",
+    "summary": "後期シリーズで繰り返し現れる『破局』の語。作品・計画ごとに具体像が異なるため、一つの事件名として固定しない。"
+  },
+  "one_strike": {
+    "name": "一撃計画",
+    "first": "11〜12深部",
+    "category": "concept",
+    "spoiler": "critical",
+    "summary": "『6人組』の世界統合と将来の破局回避に関わる計画。ジオットの就任後に前提が大きく変わったと整理される。"
+  },
+  "pokerangers": {
+    "name": "ポケレンジャー",
+    "first": "7",
+    "category": "concept",
+    "spoiler": "high",
+    "summary": "『7』の甲子園ヒーロー編に登場する変身ヒーロー集団。後作で具現化の代表例として意味が変わっていく。"
+  },
+  "hata": {
+    "name": "ハタ人間",
+    "first": "11裏",
+    "category": "ura",
+    "spoiler": "medium",
+    "summary": "『11』裏サクセスを象徴する異常化した人々。探索・仲間編成・装備を備えたサバイバルRPGの中心ギミック。"
+  },
+  "secret_society_ura": {
+    "name": "秘密結社編",
+    "first": "12裏",
+    "category": "ura",
+    "spoiler": "low",
+    "summary": "『12』裏サクセス。『11』の戦闘系と『7』のクエスト構造を融合したダークファンタジーRPG。"
+  },
+  "marine_ura": {
+    "name": "海洋冒険編",
+    "first": "13裏",
+    "category": "ura",
+    "spoiler": "low",
+    "summary": "『13』裏サクセス。航海・海戦・資源管理を取り込んだ、開発者自身が集大成的と振り返る一本。"
+  },
+  "fudasamurai": {
+    "name": "札侍編",
+    "first": "14裏",
+    "category": "ura",
+    "spoiler": "high",
+    "summary": "『14』裏サクセス。野球札で戦う江戸風世界で、表トゥルー後にのみ開くジオット関連イベントがある。"
+  },
+  "washitani": {
+    "name": "洗谷（あらたに）",
+    "first": "12",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "ジャジメント日本の非合法活動部隊を率いる超能力者。気象現象を操り、後期ジャジメントの戦闘力ランキングではナンバー4と整理される。"
+  },
+  "lucia": {
+    "name": "ルチア",
+    "first": "14",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "南の島で見つかった具現化能力者。自らを虫の神に仕える神官と信じ、その思い込みを現実化して心へ干渉する力を使う。"
+  },
+  "guntram": {
+    "name": "グントラム",
+    "first": "12裏",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『12』裏のライカン王として初登場し、後に表世界にも姿を見せる人物。裏から表への“逆輸入”を示す例の一つ。"
+  },
+  "mecha_kameda": {
+    "name": "メカ亀田",
+    "first": "6しあわせ島",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "BB団の団長。しあわせ島編の最終局面を担う存在で、裏社会とは別系統ながらパワポケらしい「過去作の残響」を背負う。"
+  },
+  "helga": {
+    "name": "ヘルガ",
+    "first": "6しあわせ島",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "しあわせ島の所長でBB団幹部。強制労働施設を統括し、島の研究・軍事利用をめぐる重要人物。"
+  },
+  "doctor_island": {
+    "name": "しあわせ島のドクター",
+    "first": "6しあわせ島",
+    "category": "character",
+    "spoiler": "medium",
+    "summary": "本名ジーラー・ジェンキンス。BB団の研究者兼医師で、しあわせ草の人体実験を担当する。"
+  },
+  "mina": {
+    "name": "武内ミーナ",
+    "first": "10",
+    "category": "character",
+    "spoiler": "medium",
+    "summary": "巨大組織の不正を追うフリージャーナリスト。『10』から『14』まで連続登場し、読者に近い“調査する側”の視点を担う。"
+  },
+  "chihaya": {
+    "name": "雨崎千羽矢",
+    "first": "13",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "『13』の重要人物で主人公の幼なじみ。彼女の身体をめぐる設定は後期の科学・超能力史、さらに『14』のハームレスへ接続する。"
+  },
+  "saika": {
+    "name": "木村冴花",
+    "first": "13",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『13』の彼女候補。彼女のルートを深く進め、他ルートや周回条件も満たすほど、ミスターKやジオット周辺の連続史が見えてくる。"
+  },
+  "shonosuke": {
+    "name": "木村庄之助",
+    "first": "13",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "冴花の父。表向きの人物像の奥に、シリーズ全体の歴史改変へ直結する重大な正体と過去を持つ。"
+  },
+  "saburo": {
+    "name": "サブロー博士",
+    "first": "6周辺／13",
+    "category": "character",
+    "spoiler": "critical",
+    "summary": "時間移動と歴史改変の核心にいる研究者。ミスターKと同じ“本来の歴史”に由来し、後期で再び連続史の中心へ戻る。"
+  },
+  "shizuya": {
+    "name": "シズヤ",
+    "first": "11",
+    "category": "character",
+    "spoiler": "high",
+    "summary": "『11』で魔人のツボから現れる魔人娘。願いを叶える存在で、後に「具現化」という現象を理解する重要例になる。"
+  },
+  "shiawase_island": {
+    "name": "しあわせ島",
+    "first": "6",
+    "category": "place",
+    "spoiler": "medium",
+    "summary": "BB団が運営する強制労働施設。労働、兵器製造、しあわせ草の人体実験が行われ、『10』親切高校の設定へ開発上の橋が架けられる。"
+  },
+  "shinsestu": {
+    "name": "親切高校",
+    "first": "10",
+    "category": "place",
+    "spoiler": "high",
+    "summary": "『10』表サクセスの舞台。閉鎖的な高校生活の裏で人体実験・超能力者開発が進み、開発者は『6』しあわせ島を設定のベースにしたと説明している。"
+  },
+  "wagiri_factory": {
+    "name": "和桐製作所",
+    "first": "6",
+    "category": "organization",
+    "spoiler": "medium",
+    "summary": "『6』表の主人公が所属する町工場。後にワギリバッテリーをめぐって巨大資本の争いへ巻き込まれ、シリーズの技術史の中心になる。"
+  },
+  "nozaki_group": {
+    "name": "NOZAKIグローバルシステム",
+    "first": "9周辺",
+    "category": "organization",
+    "spoiler": "medium",
+    "summary": "野崎維織の家系と結びつく巨大企業。後期の資本勢力やヒーロー側の事件を追う際にも名前が現れる。"
+  },
+  "genie": {
+    "name": "魔人",
+    "first": "11",
+    "category": "concept",
+    "spoiler": "high",
+    "summary": "願いを叶える超自然存在。『11』のシズヤを通して登場し、後期に整理される「具現化」を理解する代表例の一つ。"
+  },
+  "reset_roundtable": {
+    "name": "リセット座談会",
+    "first": "複数作品",
+    "category": "meta",
+    "spoiler": "critical",
+    "summary": "一定回数のプレイ後などに見られる開発陣メタ会話。未回収設定、強さ比較、没案などが語られることがあり、設定調査の重要資料。"
+  }
 }

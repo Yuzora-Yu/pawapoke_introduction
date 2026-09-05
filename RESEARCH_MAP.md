@@ -49,6 +49,7 @@
 - `research/characters/air-raid.md` — ジオットの妻と具現化
 - `research/characters/kazuna.md` — 6裏→10超能力開発
 - `research/characters/red-9.md` — 7レッド→9主人公説
+- `research/characters/nozaki-iori.md` — 9野崎維織
 - `data/tips.json` — 記事Tips用短文
 
 ## 6. 裏サクセス
@@ -85,6 +86,8 @@
 - `research/sources/official-archives.md`
 - `research/sources/bibliography.md`
 - `research/sources/official-guides.md`
+- `research/sources/media-interviews.md` — 媒体横断インタビュー
+- `research/sources/official-qa-highlights.md` — 旧公式Q&A・座談会の重要回答
 
 ## 12. 派生記事
 `article/related/README.md`
@@ -98,3 +101,7 @@
 6. 強さ/最強議論
 7. 表と裏は本当に別世界か
 8. 開発史 / ライター
+
+
+## Tips辞書
+`data/tips.json` は現在65語。人物だけでなく組織・技術・能力・場所・メタ用語まで共通辞書化している。

@@ -7,6 +7,7 @@
 現在：
 - `outline.md` — 採用構成
 - `fragments.md` — 使える文章パーツ
+- `ui-notes.md` — 人物・用語Tips等のUI設計
 
 本文を書き始めたら：
 - `note.md`
@@ -21,3 +22,8 @@
 - `ui-notes.md` — 公開サイトでの人物Tips UI案
 - `author-note.md` — 13の個人的体験と自作ゲームへの接続
 - `related/` — 派生記事計画
+
+
+## HTMLプレビュー
+
+旧プレビューは調査更新に追随しなくなったためリポジトリから外している。次回HTML化時は、現在の `research/` と `data/tips.json` から新規生成する。

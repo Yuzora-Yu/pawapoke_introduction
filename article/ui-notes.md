@@ -59,30 +59,20 @@ Tipsを別レイヤーにすることで、
 
 という両立ができる。
 
----
 
-# Web Design Director準拠の実装制約
 
-## Central concept
+## Tipsのカテゴリを人物以外へ拡張
 
-> **インディーゲーム雑誌の長文特集 × ファン研究資料庫**
+本文の固有名詞負荷を下げるため、Tipsは人物辞典だけにしない。
 
-右側Tipsは「SaaSの補助カード」ではなく、雑誌の欄外注釈・人物索引・資料カードのように見せる。
+- `character`：人物
+- `organization`：組織・企業
+- `technology`：技術・物質
+- `power`：能力分類
+- `concept`：計画・世界史用語
+- `place`：舞台・施設
+- `ura`：裏サクセス名
+- `meta`：リセット座談会などゲーム外縁の用語
 
-## 長文可読性
-- 本文幅は日本語35〜45字/行程度を基準。
-- line-height 1.7〜2.0。
-- PCでも本文を横に広げすぎない。
-
-## Accessibility
-- Tips triggerはbuttonまたは同等にkeyboard操作可能なnative要素を使用。
-- visible focusを付ける。
-- mobile modalはEscapeで閉じられ、focusを開いた元へ戻す。
-- touch targetは44px程度以上。
-- reduced motion設定時はtransition/animationを止めるか最小化。
-
-## QA
-- 320 / 768 / wide desktopで確認。
-- skip linkを実装。
-- sticky Tipsとanchor scrollが干渉しないようscroll offsetを定義。
-- horizontal overflow、長い人物名、長い見出しを確認。
+2026-09-05時点で `data/tips.json` は65語まで拡張。
+記事本文に出ない語を無理に表示する必要はなく、詳細記事へ展開する際の共通辞書として持つ。
