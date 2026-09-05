@@ -3,39 +3,39 @@
 Current repository file inventory. Old versions are managed by Git history.
 
 - Files: 73
-- Tips entries: 65
+- Tips entries: 110
 
 | File | Bytes | SHA256 |
 |---|---:|---|
 | `.gitignore` | 33 | `fa5b2d4433b835933b22140e01833a4972a0ee8532d76951286e3dd071994af0` |
 | `AGENTS.md` | 7686 | `12766d898102e7617836b92e870e47823242be0162fd891f72cb08c455a8bfe8` |
-| `AI_HANDOFF.md` | 7258 | `679d253bbace2cc38be0b3ee1b49c1dd886cb924e26c207baa8a19cc61a4d52d` |
-| `PROJECT.md` | 8458 | `fffc36bca1efd13aeba33c9b8d6411647160efffbd855f4ee72e651b84eb8be6` |
-| `README.md` | 2250 | `e5a2ae67748d41acdbf30c29d39ab931d9265f8284c01a7994e8e2af53e0092b` |
-| `RESEARCH_MAP.md` | 4529 | `d78b0624acdb18a7ce829a8effbdbc3a87d447375b7ee89a029d0c0db60cd107` |
-| `WEB_DESIGN_RULES.md` | 3017 | `1147add44745e24b41d04f595dda10d1bec59e51178e867de5bdf5396af177e4` |
-| `article/README.md` | 1290 | `1336e009c062599a48bb84002a5af8cdb42567e56e4325244d4b87a5023a1ac8` |
-| `article/author-note.md` | 1609 | `127533e6b0109d70c22aea3702923124cf0b4d079e7ec2843aa2c87ea665ba50` |
-| `article/build_full_html.py` | 21022 | `36ffb05ea099e0fa47c54b83991797525876f3eb9ebb52591536adcd889f9f8e` |
+| `AI_HANDOFF.md` | 10454 | `13c84119575d34dbd1db4646e72cd984af4bebea8a93bfd387ac88100ac8aa49` |
+| `PROJECT.md` | 8790 | `a33e55882fc4d79b2663e643264fa930eb07efa40cf40757a3b2709364bbe073` |
+| `README.md` | 2222 | `0063b7d2c2d1c0ee0ab8a6459b72f2371f96298f1fa1d99e2693ea5a2b13e946` |
+| `RESEARCH_MAP.md` | 4626 | `d7a5ec9a87c2f9cdc0ca8e93226ca4615fdb943376d9622e6d4eeb3cf65c56a7` |
+| `WEB_DESIGN_RULES.md` | 3660 | `a26f598196b51654114127a8ac14f90144ce464af50c7368efa4f35c945c4524` |
+| `article/README.md` | 1503 | `74d80df1a6ad5a112d9f8b61b996cd57f60729648de3a698d1b275c2f3ca4e3c` |
+| `article/author-note.md` | 1089 | `607d4e99a92c123b9311cd4612525974c0321930052715f62bb40376af6e14b2` |
+| `article/build_full_html.py` | 29504 | `37c246647b9262c8e8dcefa0283f6235bbfd7b9f46dbebe8a6fa8ea8da0f59ea` |
 | `article/fragments.md` | 5156 | `e721702506e5bcc42ca56ded1a652ecbf2d9cfdf9494821cd0d212747dbd6a74` |
-| `article/full.html` | 99581 | `bbccccaafc371b671b0cf23d2dde2e3ab45ac02a75c24a45e5511dc628e2e6d5` |
-| `article/full.md` | 28565 | `68ff898a7370d7f8b26af6cc036719ace633d6565408c2b05dfa9e351bfde755` |
-| `article/note.md` | 5148 | `f7cf100d74a57d5ecb4e08a73033e255a6c367c1af6d4a6c3692791103824c6f` |
-| `article/outline.md` | 5676 | `8277235c38e2dcfc384d7685702487ff270495d4c4879bdd5644455c261eebd5` |
+| `article/full.html` | 158106 | `ebeae3ecae7f6be188798c929f7155f42095986f9c268edc4c20528a71db2b51` |
+| `article/full.md` | 38378 | `9f44b0d15a10e300bdb41e9e7256c31ba6ab49136db9ae22d9e8d436eefda7b8` |
+| `article/note.md` | 5572 | `1792a0d2aa6fad87ee6a6854f21f9e1f05bad5c7ec1c5f2538535c651a64ba71` |
+| `article/outline.md` | 6892 | `4a3f93ba6369f1f4d3b98f06e44605a298a0c61d96fab3b9329b62372b7d96ed` |
 | `article/related/README.md` | 1688 | `94f2127df8c600ae600f6d6d6c1c7efe564a11b85d195694f0e598a87c3da0e4` |
-| `article/ui-notes.md` | 2076 | `88a7bf68043110ef08b1ee3be6fdf1fee4a5edeb9f78ae13491b534d563ac948` |
+| `article/ui-notes.md` | 3376 | `d682c66a19026035abb1b530a306835a6ee951858c6492ac7b029721b5244fd7` |
 | `assets/README.md` | 533 | `b89b811b9d5bfdd3373fb72249e5fbd85a9a01cf12f96b57f4af623bb025ffa9` |
 | `assets/diagrams/README.md` | 1141 | `ff06239bdf12809cb5a075bff40714df4f102fea8e35d8688971e222ac7419ee` |
-| `data/tips.json` | 19236 | `0094c0a2279445cc3319fc900ff4b41366864c63d304c19073cf6ead26440e9e` |
+| `data/tips.json` | 34826 | `1b25bd33f48185820a9d4d6aa57f64437d50907402714b9e9653003c42a5de01` |
 | `data/works.json` | 1485 | `acfe923d267d4352f87882f669dbdcb5a08f72a665860a9dda1faeafeafb4791` |
 | `requirements-dev.txt` | 35 | `c0abed760b99b6eaa988c95912b8376ab7e4c636dec00f92f91a5d88beeb0062` |
-| `research/CURRENT_STATUS.md` | 4856 | `82ae0a523202ea558b4cb2567b04c72a25209c020bd2acf32d6b7588a5aed9c1` |
+| `research/CURRENT_STATUS.md` | 5364 | `f5a328b0a9d4093aa2bdb360cb0d452bb2d0a8f33458d35109317207875028df` |
 | `research/README.md` | 1468 | `05fe121defe0c24ba76a36e77bf1c018965e3ec770ea58807318ee37bdf4b73a` |
 | `research/access/how-to-play.md` | 970 | `0a73203e446e1f45282ac03a989773f72201429fbc976f24441bd277f59950b7` |
 | `research/canon/catastrophe.md` | 4041 | `b2d9ad8f12388f0b29bcd9097d87c6c257f299d83c985cf1d64aaee97486f98b` |
 | `research/canon/cross-series-connections.md` | 6100 | `c706fe87022efa770b2120bfb4d4f7d836339265a2111b70583f20a420fd31e6` |
 | `research/canon/evidence-11-14.md` | 5418 | `6f943a17a4c12d71e3338e88cdacd89cc6505f88dc9e474ff7058d7198182cca` |
-| `research/canon/hidden-continuity-design.md` | 5844 | `23f7e23a0c11556b20e66651d5a3898bcead41b12dd746f98430419b279b9e04` |
+| `research/canon/hidden-continuity-design.md` | 6452 | `a284aa4c376c2cdf394834b0a9b171909dec065aed6e2033e02f72923f87796e` |
 | `research/canon/information-lines.md` | 670 | `826fc6856f9c3e206495ada641b480e16b8cf2f57f11c202c15c431bbcad746e` |
 | `research/canon/old-rulers.md` | 681 | `384859bf85467150784feb40ec5d1772620d402104a8b7c09980eec22c3b2fbb` |
 | `research/canon/organizations.md` | 4660 | `00c0e2589f7cceac0e071975e61caf3e7764a102539baaa29f263f2e9e945672` |

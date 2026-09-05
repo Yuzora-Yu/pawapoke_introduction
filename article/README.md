@@ -22,10 +22,15 @@ python article/build_full_html.py
 
 現在：
 
-- 本文中29語をクリックTips化
-- `data/tips.json` 全65語をPOCKET INDEXへ収録
-- PCは右側sticky Tips
-- スマホはdialog
+- `data/tips.json`：110語
+- 本文中：69語をクリックTips化（本文変更で増減可）
+- PC：右側 sticky Tips
+- スマホ：Tips dialog
+- 右上：`CONTENTS / INDEX` drawer
+  - 記事内目次
+  - 全110語の検索可能な索引
+- 下部：好き / X共有 / リンクコピー
+- 最終末尾：短いAuthor表記のみ
 - 画像素材なし
 - YU-ZORA統合前の独立ページとして閲覧可能
 
@@ -34,7 +39,7 @@ python article/build_full_html.py
 - `outline.md` — 採用構成
 - `fragments.md` — 使える文章パーツ
 - `ui-notes.md` — UI設計
-- `author-note.md` — 13の個人的体験 / 自作ゲームへの接続
+- `author-note.md` — 筆者紹介の最小化ルール / 『13』の個人的体験
 - `related/` — 派生記事計画
 
 ## 運用

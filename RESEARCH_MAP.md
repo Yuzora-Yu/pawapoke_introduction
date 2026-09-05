@@ -13,7 +13,7 @@
 - `article/outline.md` — 章立て
 - `article/fragments.md` — 使える文章
 - `article/ui-notes.md` — Tips UI
-- `article/author-note.md` — 13の思い出 / 自作ゲームとの接続
+- `article/author-note.md` — 筆者情報・13の個人的体験の表示ルール
 
 ## 2. 「そもそもパワポケ」を確認
 - `research/series/beginner-guide.md`
@@ -108,4 +108,4 @@
 
 
 ## Tips辞書
-`data/tips.json` は現在65語。人物だけでなく組織・技術・能力・場所・メタ用語まで共通辞書化している。
+`data/tips.json` は現在110語。人物だけでなく組織・技術・能力・場所・メタ用語に加え、パワプロ／サクセス未経験者向けのゲーム・野球基礎語まで共通辞書化している。

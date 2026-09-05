@@ -87,3 +87,18 @@ Avoid default AI patterns:
 - relative asset pathとanchorを検証する。
 - GitHub Pages / Cloudflare Pages等のターゲット環境で成立する構成にする。
 - ユーザーのプロジェクトについて未確認の文言を発明しない。
+
+
+## Long-form navigation pattern
+
+長文記事の共通骨格として以下を優先する。
+
+- 右上固定の `CONTENTS / INDEX` から drawer を開く。
+- CONTENTS＝記事内目次。
+- INDEX＝検索可能な人物・用語・基本語辞書。
+- PCのその場Tipsは右rail。モバイルはdialog。
+- 記事末に巨大な辞書一覧を置かない。
+- 記事下部に共有 / 好き等のアクションをまとめる。
+- Authorは最終末尾に小さく置き、本文を自己宣伝で終わらせない。
+
+この情報設計はパワポケ記事固有ではなく、YU-ZORAの今後の長文記事にも流用する。

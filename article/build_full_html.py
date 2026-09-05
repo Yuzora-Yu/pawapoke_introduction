@@ -1,198 +1,431 @@
 from pathlib import Path
-import json,re,html
+import json, re, html
 import mistune
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, NavigableString
 
-root=Path(__file__).resolve().parents[1]
-md_text=(root/'article/full.md').read_text(encoding='utf-8')
-tips=json.loads((root/'data/tips.json').read_text(encoding='utf-8'))
+root = Path(__file__).resolve().parents[1]
+md_text = (root / 'article/full.md').read_text(encoding='utf-8')
+tips = json.loads((root / 'data/tips.json').read_text(encoding='utf-8'))
 
-renderer=mistune.HTMLRenderer(escape=False)
-md=mistune.create_markdown(renderer=renderer, plugins=['table','url'])
-article_html=md(md_text)
-soup=BeautifulSoup(article_html,'html.parser')
+renderer = mistune.HTMLRenderer(escape=False)
+md = mistune.create_markdown(renderer=renderer, plugins=['table', 'url'])
+article_html = md(md_text)
+soup = BeautifulSoup(article_html, 'html.parser')
 
-# The standalone page supplies its own hero title / spoiler bar. Remove the duplicated Markdown header block.
-first_h1=soup.find('h1')
+# Standalone page supplies hero/spoiler chrome.
+first_h1 = soup.find('h1')
 if first_h1:
     first_h1.decompose()
-first_blockquote=soup.find('blockquote')
-if first_blockquote and 'SPOILER WARNING' in first_blockquote.get_text(' ',strip=True):
+first_blockquote = soup.find('blockquote')
+if first_blockquote and 'SPOILER WARNING' in first_blockquote.get_text(' ', strip=True):
     first_blockquote.decompose()
 
-# Heading IDs and TOC
-used=set(); toc=[]
-def slug_heading(txt):
-    t=txt.strip()
-    m=re.match(r'^(\d{2})[\s　]+', t)
-    if m: return f's{m.group(1)}'
-    if t.upper()=='SOURCE NOTES': return 'sources'
-    s=re.sub(r'[^a-zA-Z0-9ぁ-んァ-ヶ一-龠]+','-',t).strip('-').lower()
-    return s or 'section'
-for h in soup.find_all('h2'):
-    sid=slug_heading(h.get_text(' ',strip=True)); base=sid; i=2
-    while sid in used: sid=f'{base}-{i}'; i+=1
-    used.add(sid); h['id']=sid; toc.append((sid,h.get_text(' ',strip=True)))
+# Extract the author line from Markdown so it can truly be the final page element.
+author_html = ''
+for p in list(soup.find_all('p')):
+    text = p.get_text(' ', strip=True)
+    if text.startswith('Author') and '夕空ユウ' in text:
+        author_html = str(p)
+        p.decompose()
+        break
 
-# Tips: exact display names + safe aliases used in prose.
-aliases={v['name']:k for k,v in tips.items()}
+# Heading IDs and menu contents.
+used = set()
+toc = []
+def slug_heading(txt: str) -> str:
+    t = txt.strip()
+    m = re.match(r'^(\d{2})[\s　]+', t)
+    if m:
+        return f's{m.group(1)}'
+    if t.upper() == 'SOURCE NOTES':
+        return 'sources'
+    s = re.sub(r'[^a-zA-Z0-9ぁ-んァ-ヶ一-龠]+', '-', t).strip('-').lower()
+    return s or 'section'
+
+for h in soup.find_all('h2'):
+    sid = slug_heading(h.get_text(' ', strip=True))
+    base = sid
+    i = 2
+    while sid in used:
+        sid = f'{base}-{i}'
+        i += 1
+    used.add(sid)
+    h['id'] = sid
+    toc.append((sid, h.get_text(' ', strip=True)))
+
+# Tips: exact display names plus a few prose aliases.
+aliases = {v['name']: k for k, v in tips.items()}
 aliases.update({
-    'ジオット':'gio','ホンフー':'hongfu','6人組':'six','超能力':'esp','カタストロフ':'catastrophe',
-    '一撃計画':'one_strike','ポケレンジャー':'pokerangers','ハタ人間':'hata','しあわせ島':'shiawase_island',
-    '秘密結社編':'secret_society_ura','海洋冒険編':'marine_ura','札侍編':'fudasamurai',
+    'パワプロクンポケット': 'pawapoke',
+    'トゥルー': 'true_end',
+    '登録選手数': 'registered_player',
+    'ジオット': 'gio',
+    'ホンフー': 'hongfu',
+    '6人組': 'six',
+    'カタストロフ': 'catastrophe',
+    '一撃計画': 'one_strike',
+    'ポケレンジャー': 'pokerangers',
+    'ハタ人間': 'hata',
+    'しあわせ島編': 'shiawase_island',
+    '秘密結社編': 'secret_society_ura',
+    '海洋冒険編': 'marine_ura',
+    '札侍編': 'fudasamurai',
 })
-# Longest aliases first, and only annotate a term once in the main article.
-pattern=re.compile('|'.join(map(re.escape,sorted(aliases,key=len,reverse=True))))
-used_keys=set()
-skip_parents={'a','code','pre','script','style','button','h1','h2','h3'}
+pattern = re.compile('|'.join(map(re.escape, sorted(aliases, key=len, reverse=True))))
+used_keys = set()
+skip_parents = {'a', 'code', 'pre', 'script', 'style', 'button', 'h1', 'h2', 'h3', 'th'}
+
 for node in list(soup.find_all(string=True)):
-    if not isinstance(node,NavigableString) or not node.strip(): continue
-    if node.parent and node.parent.name in skip_parents: continue
-    text=str(node); pos=0; pieces=[]; changed=False
+    if not isinstance(node, NavigableString) or not node.strip():
+        continue
+    if node.parent and node.parent.name in skip_parents:
+        continue
+    text = str(node)
+    pos = 0
+    pieces = []
+    changed = False
     for m in pattern.finditer(text):
-        key=aliases[m.group(0)]
-        if key in used_keys: continue
+        key = aliases[m.group(0)]
+        if key in used_keys:
+            continue
         pieces.append(NavigableString(text[pos:m.start()]))
-        b=soup.new_tag('button', attrs={
-            'type':'button','class':'tip-trigger','data-tip':key,
-            'aria-label':f"{tips[key]['name']}のTipsを開く"
+        b = soup.new_tag('button', attrs={
+            'type': 'button',
+            'class': 'tip-trigger',
+            'data-tip': key,
+            'aria-label': f"{tips[key]['name']}のTipsを開く",
         })
-        b.string=m.group(0)
-        pieces.append(b); pos=m.end(); used_keys.add(key); changed=True
+        b.string = m.group(0)
+        pieces.append(b)
+        pos = m.end()
+        used_keys.add(key)
+        changed = True
     if changed:
         pieces.append(NavigableString(text[pos:]))
-        for p in reversed(pieces): node.insert_after(p)
+        for p in reversed(pieces):
+            node.insert_after(p)
         node.extract()
 
-article_inner=str(soup)
+# Wrap wide tables for mobile.
+for table in soup.find_all('table'):
+    wrap = soup.new_tag('div', attrs={
+        'class': 'table-wrap',
+        'role': 'region',
+        'aria-label': '横スクロールできる表',
+        'tabindex': '0',
+    })
+    table.wrap(wrap)
 
-toc_html=''.join(f'<li><a href="#{html.escape(sid)}">{html.escape(title)}</a></li>' for sid,title in toc if sid!='sources')
+article_inner = str(soup)
 
-category_labels={'character':'人物','organization':'組織','technology':'技術','power':'能力','concept':'概念','place':'場所','ura':'裏サクセス','meta':'メタ'}
-spoiler_labels={'low':'軽度','medium':'中','high':'高','critical':'核心'}
-index_items=[]
-for key,v in tips.items():
-    index_items.append(f'''<li class="index-item" data-search="{html.escape(v['name'])} {html.escape(v['summary'])}" data-category="{html.escape(v['category'])}">
-<button type="button" class="index-open" data-tip="{html.escape(key)}">
-<span class="index-name">{html.escape(v['name'])}</span>
-<span class="index-meta">{html.escape(category_labels.get(v['category'],v['category']))} · 初出 {html.escape(v['first'])} · SPOILER {html.escape(spoiler_labels.get(v['spoiler'],v['spoiler']))}</span>
-</button></li>''')
-index_html='\n'.join(index_items)
-tips_json=json.dumps(tips,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+toc_items = []
+for sid, title in toc:
+    label = html.escape(title)
+    toc_items.append(f'<li><a href="#{html.escape(sid)}"><span>{label[:2] if sid.startswith("s") else "—"}</span>{label}</a></li>')
+toc_html = ''.join(toc_items)
 
-css=r'''
-:root{
-  --paper:#f1ede3;--paper-2:#faf8f2;--ink:#171717;--muted:#68645e;--line:#b8b1a4;
-  --accent:#b42f25;--accent-2:#173f54;--dark:#111;--max:1180px;--body:720px;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
-  --serif:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+category_labels = {
+    'series': 'シリーズ', 'system': '遊び方', 'character': '人物', 'organization': '組織',
+    'technology': '技術', 'power': '能力', 'concept': '概念', 'place': '場所',
+    'ura': '裏サクセス', 'meta': 'メタ',
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.92}
-a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip-link{position:absolute;left:8px;top:-80px;background:#fff;color:#000;padding:12px 16px;z-index:999}.skip-link:focus{top:8px}
-.topline{border-bottom:1px solid var(--ink);background:var(--paper-2)}.topline-inner{max-width:var(--max);margin:auto;min-height:54px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.brand{font-weight:800}.top-meta{color:var(--muted)}
-.hero{border-bottom:1px solid var(--ink)}.hero-inner{max-width:var(--max);margin:auto;padding:66px 22px 54px;display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:50px;align-items:end}.eyebrow{font-size:12px;letter-spacing:.16em;font-weight:800;color:var(--accent);margin:0 0 24px}.hero h1{font-family:var(--serif);font-size:clamp(34px,5vw,68px);line-height:1.22;letter-spacing:-.03em;margin:0;max-width:900px}.hero-deck{margin:26px 0 0;font-size:18px;max-width:760px;color:#333}.hero-code{border-left:1px solid var(--ink);padding-left:18px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;line-height:1.65;color:var(--muted)}.hero-code strong{display:block;color:var(--ink);font-size:28px;line-height:1.1;margin-bottom:8px}.spoiler-bar{background:var(--dark);color:#fff}.spoiler-inner{max-width:var(--max);margin:auto;padding:14px 22px;font-size:13px;letter-spacing:.04em}
-.mobile-toc{display:none;max-width:var(--max);margin:0 auto;border-bottom:1px solid var(--line);padding:16px 22px}.mobile-toc summary{font-weight:800;cursor:pointer}.mobile-toc ol{columns:2;padding-left:22px}.mobile-toc a{font-size:14px}
-.layout{max-width:var(--max);margin:0 auto;padding:56px 22px 100px;display:grid;grid-template-columns:minmax(0,var(--body)) minmax(260px,330px);gap:80px;align-items:start}.article{min-width:0}.article p{margin:0 0 1.45em}.article h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);line-height:1.4;margin:5.2rem 0 1.7rem;padding-top:1.2rem;border-top:1px solid var(--ink);letter-spacing:-.02em}.article h2:first-of-type{margin-top:0}.article h3{font-size:20px;line-height:1.55;margin:3rem 0 1rem;color:var(--accent-2)}.article strong{font-weight:800}.article blockquote{margin:2.2rem 0;padding:1rem 0 1rem 22px;border-left:5px solid var(--accent);font-family:var(--serif);font-size:21px;line-height:1.8}.article blockquote p:last-child{margin-bottom:0}.article hr{border:0;border-top:1px solid var(--line);margin:4rem 0}.article ul{padding-left:1.3em}.article li{margin:.55em 0}.article table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.65;margin:1.8rem 0 2.6rem}.article th,.article td{padding:11px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.article th{border-top:2px solid var(--ink);font-size:12px;letter-spacing:.04em;background:rgba(255,255,255,.28)}.article td:first-child,.article th:first-child{white-space:nowrap;font-weight:800}.article a[href^="http"]{word-break:break-all}.article #sources{font-family:var(--sans);font-size:20px;letter-spacing:.08em}.article #sources~p,.article #sources~ul{font-size:13px;color:var(--muted)}
-.tip-trigger{display:inline;padding:0 .06em;border:0;border-bottom:1px dotted var(--accent);background:transparent;color:inherit;font:inherit;font-weight:inherit;cursor:pointer;text-decoration:none}.tip-trigger::after{content:"↗";font-size:.62em;color:var(--accent);vertical-align:.55em;margin-left:.14em}.tip-trigger:hover,.tip-trigger:focus-visible{background:#fff2c8;outline:2px solid transparent;border-bottom-style:solid}.tip-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.rail{position:sticky;top:20px;align-self:start}.rail-block{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:14px 0 18px;margin-bottom:28px}.rail-kicker{margin:0 0 16px;font:800 11px/1 var(--sans);letter-spacing:.18em;color:var(--accent)}.rail h2{font-family:var(--serif);font-size:23px;line-height:1.4;margin:0 0 12px}.rail p{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 10px}.rail .tip-summary{font-size:14px;color:var(--ink)}.rail-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.rail nav{border-top:1px solid var(--line);padding-top:16px}.rail nav h2{font:800 11px/1 var(--sans);letter-spacing:.18em;margin:0 0 12px}.rail ol{margin:0;padding:0;list-style:none;max-height:48vh;overflow:auto}.rail li{border-top:1px solid var(--line)}.rail li:first-child{border-top:0}.rail a{display:block;padding:8px 0;font-size:12px;line-height:1.45;text-decoration:none}.rail a:hover,.rail a:focus-visible{color:var(--accent);text-decoration:underline}.rail-index-link{display:block;border-top:1px solid var(--ink);margin-top:16px;padding-top:12px;font-size:12px;font-weight:800;letter-spacing:.05em}
-.pocket-index{background:var(--paper-2);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}.pocket-inner{max-width:var(--max);margin:auto;padding:55px 22px 75px}.pocket-head{display:grid;grid-template-columns:1fr minmax(240px,360px);gap:40px;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:22px}.pocket-head h2{font-family:var(--serif);font-size:clamp(30px,4vw,48px);margin:0;line-height:1.25}.pocket-head p{margin:0;color:var(--muted);font-size:14px}.index-controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin:24px 0}.index-search{width:100%;min-height:46px;border:1px solid var(--ink);background:#fff;padding:10px 12px;font:inherit;border-radius:0}.index-count{display:flex;align-items:center;border:1px solid var(--ink);padding:0 12px;font:700 12px/1 var(--sans);letter-spacing:.08em}.index-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr}.index-item{border-bottom:1px solid var(--line)}.index-item:nth-child(odd){border-right:1px solid var(--line)}.index-open{width:100%;min-height:70px;text-align:left;border:0;background:transparent;padding:12px 14px;cursor:pointer}.index-open:hover,.index-open:focus-visible{background:#f0e4d1;outline:2px solid var(--accent);outline-offset:-2px}.index-name{display:block;font-weight:800;font-size:15px}.index-meta{display:block;margin-top:4px;font-size:10px;color:var(--muted);letter-spacing:.04em}.index-item[hidden]{display:none}
-.footer{max-width:var(--max);margin:auto;padding:30px 22px 50px;display:flex;justify-content:space-between;gap:20px;font-size:11px;color:var(--muted);letter-spacing:.05em}
-.tip-dialog{width:min(92vw,560px);border:1px solid var(--ink);border-radius:0;padding:0;background:var(--paper-2);color:var(--ink);box-shadow:10px 10px 0 rgba(0,0,0,.22)}.tip-dialog::backdrop{background:rgba(0,0,0,.62)}.dialog-head{display:flex;justify-content:space-between;align-items:start;gap:16px;border-bottom:1px solid var(--ink);padding:16px 18px}.dialog-head p{margin:0 0 5px;font-size:10px;letter-spacing:.14em;color:var(--accent);font-weight:800}.dialog-head h2{font-family:var(--serif);margin:0;font-size:26px;line-height:1.3}.dialog-close{min-width:44px;min-height:44px;border:1px solid var(--ink);background:transparent;font-size:22px;cursor:pointer}.dialog-close:hover,.dialog-close:focus-visible{background:var(--ink);color:#fff;outline:2px solid var(--accent);outline-offset:2px}.dialog-body{padding:18px}.dialog-body p{margin:0 0 14px;line-height:1.8}.dialog-meta{font-size:12px;color:var(--muted)}
-@media(max-width:980px){.hero-inner{grid-template-columns:1fr}.hero-code{border-left:0;border-top:1px solid var(--line);padding:16px 0 0;display:flex;gap:16px;align-items:center}.hero-code strong{margin:0}.layout{grid-template-columns:minmax(0,1fr);gap:0;max-width:800px}.rail{display:none}.mobile-toc{display:block}.article{width:100%;max-width:720px;margin:auto}.pocket-inner{max-width:800px}.pocket-head{grid-template-columns:1fr}.index-list{grid-template-columns:1fr}.index-item:nth-child(odd){border-right:0}}
-@media(max-width:620px){body{font-size:16px;line-height:1.9}.topline-inner{padding:0 16px}.top-meta{display:none}.hero-inner{padding:42px 16px 38px}.hero h1{font-size:34px;line-height:1.28}.hero-deck{font-size:16px}.spoiler-inner,.mobile-toc{padding-left:16px;padding-right:16px}.mobile-toc ol{columns:1}.layout{padding:38px 16px 70px}.article h2{font-size:27px;margin-top:4.2rem}.article h3{font-size:19px}.article blockquote{font-size:18px;padding-left:16px}.article table{font-size:12px;min-width:640px}.article table{display:table}.article .table-wrap{width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain}.pocket-inner{padding:42px 16px 60px}.pocket-head h2{font-size:32px}.index-controls{grid-template-columns:1fr}.index-count{min-height:42px}.footer{padding-left:16px;padding-right:16px;display:block}.footer span{display:block;margin-top:5px}}
+spoiler_labels = {'low': '軽度', 'medium': '中', 'high': '高', 'critical': '核心'}
+index_items = []
+for key, v in tips.items():
+    search = f"{v['name']} {v['summary']} {category_labels.get(v['category'], v['category'])} {v['first']}"
+    index_items.append(f'''<li class="index-item" data-search="{html.escape(search)}" data-category="{html.escape(v['category'])}">
+<button type="button" class="index-open" data-tip-index="{html.escape(key)}">
+<span class="index-name">{html.escape(v['name'])}</span>
+<span class="index-meta">{html.escape(category_labels.get(v['category'], v['category']))} · 初出 {html.escape(v['first'])}</span>
+</button></li>''')
+index_html = '\n'.join(index_items)
+tips_json = json.dumps(tips, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+
+css = r'''
+:root{
+  --paper:#f2efe7; --paper2:#fbfaf6; --ink:#171717; --muted:#706b63; --line:#bbb3a7;
+  --accent:#b83229; --accent2:#21495a; --dark:#111; --max:1220px; --article:744px;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  --serif:"Yu Mincho","Hiragino Mincho ProN",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:2;letter-spacing:.01em}
+button,input{font:inherit}
+a{color:inherit}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:fixed;left:12px;top:-80px;z-index:1000;background:#fff;padding:8px 12px;border:1px solid var(--ink)}
+.skip-link:focus{top:12px}
+
+.sitebar{position:sticky;top:0;z-index:40;height:58px;background:rgba(242,239,231,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--ink)}
+.sitebar-inner{max-width:var(--max);height:100%;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-size:12px;font-weight:800;letter-spacing:.14em;white-space:nowrap}
+.menu-button{border:0;background:transparent;color:var(--ink);display:flex;align-items:center;gap:10px;padding:7px 0;cursor:pointer;font-size:12px;font-weight:800;letter-spacing:.12em}
+.menu-icon{width:24px;height:16px;position:relative;display:block}
+.menu-icon::before,.menu-icon::after,.menu-icon span{content:"";position:absolute;right:0;height:1px;background:currentColor}
+.menu-icon::before{top:0;width:24px}.menu-icon span{top:7px;width:17px}.menu-icon::after{bottom:0;width:24px}
+.menu-button:hover .menu-icon span,.menu-button:focus-visible .menu-icon span{width:24px}
+.menu-button:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+
+.hero{border-bottom:1px solid var(--ink);background:var(--paper2)}
+.hero-inner{max-width:var(--max);margin:auto;padding:72px 24px 62px;display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:56px;align-items:end}
+.eyebrow{margin:0 0 18px;color:var(--accent);font-size:11px;font-weight:900;letter-spacing:.16em}
+.hero h1{margin:0;font-family:var(--serif);font-size:clamp(40px,5.5vw,74px);line-height:1.22;letter-spacing:-.045em;font-weight:700}
+.hero-deck{max-width:760px;margin:25px 0 0;font-size:18px;line-height:1.8;color:#393632}
+.hero-code{border-left:1px solid var(--line);padding-left:22px;color:var(--muted);font-size:11px;line-height:1.7;letter-spacing:.08em}
+.hero-code strong{display:block;color:var(--ink);font-size:34px;line-height:1;margin-bottom:12px;letter-spacing:-.04em}
+.spoiler-bar{background:var(--dark);color:#fff;border-bottom:1px solid var(--dark)}
+.spoiler-inner{max-width:var(--max);margin:auto;padding:10px 24px;font-size:12px;letter-spacing:.03em}
+.spoiler-inner strong{color:#ff8178;letter-spacing:.11em}
+
+.layout{max-width:var(--max);margin:auto;padding:72px 24px 110px;display:grid;grid-template-columns:minmax(0,var(--article)) minmax(220px,280px);gap:82px;align-items:start}
+.article{min-width:0}
+.article>p{margin:0 0 1.45em}
+.article>p:first-child{font-size:20px}
+.article h2{font-family:var(--serif);font-size:36px;line-height:1.42;letter-spacing:-.025em;margin:5.2rem 0 1.7rem;padding-top:.35rem;border-top:3px solid var(--ink)}
+.article h3{font-size:21px;line-height:1.55;margin:2.8rem 0 .85rem;padding-left:14px;border-left:4px solid var(--accent)}
+.article strong{font-weight:800}
+.article blockquote{margin:2.4rem 0;padding:4px 0 4px 22px;border-left:5px solid var(--accent);font-family:var(--serif);font-size:21px;line-height:1.8}
+.article hr{border:0;border-top:1px solid var(--line);margin:4.2rem 0}
+.article ul,.article ol{padding-left:1.35em;margin:1.2em 0 1.8em}
+.article li{margin:.4em 0}
+.article a{text-decoration-thickness:1px;text-underline-offset:3px}
+.article a:hover{color:var(--accent)}
+.table-wrap{max-width:100%;overflow-x:auto;margin:1.8rem 0 2.3rem;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.article table{width:100%;min-width:680px;border-collapse:collapse;font-size:13px;line-height:1.55;background:rgba(255,255,255,.27)}
+.article th,.article td{padding:11px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.article th{font-size:11px;letter-spacing:.06em;background:rgba(0,0,0,.035)}
+.article tr:last-child td{border-bottom:0}
+#sources{font-family:var(--sans);font-size:17px;letter-spacing:.08em;border-top:1px solid var(--ink);padding-top:20px}
+#sources~p,#sources~ul{font-size:13px;line-height:1.75;color:#514d47}
+
+.tip-trigger{display:inline;padding:0 1px;border:0;border-bottom:1px dashed var(--accent);background:transparent;color:inherit;cursor:pointer;text-align:inherit;line-height:inherit}
+.tip-trigger::after{content:"?";display:inline-grid;place-items:center;width:13px;height:13px;margin-left:2px;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font:700 9px/1 var(--sans);vertical-align:.28em}
+.tip-trigger:hover,.tip-trigger:focus-visible{background:rgba(184,50,41,.08);outline:0}
+.tip-trigger:focus-visible{box-shadow:0 0 0 2px var(--accent)}
+.rail{position:sticky;top:88px}
+.tip-card{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:16px 0 18px}
+.tip-kicker{margin:0 0 12px;color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.16em}
+.tip-card h2{margin:0 0 10px;font-family:var(--serif);font-size:24px;line-height:1.45}
+.tip-summary{margin:0 0 14px;font-size:14px;line-height:1.85;color:#34312e}
+.tip-meta{font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.tip-hint{margin:18px 0 0;color:var(--muted);font-size:11px;line-height:1.65}
+
+.article-actions{max-width:var(--article);margin:0 auto 0;display:flex;flex-wrap:wrap;gap:10px;padding:0 24px 46px}
+.action-button{appearance:none;border:1px solid var(--ink);background:transparent;color:var(--ink);min-height:44px;padding:9px 15px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;font-size:13px;font-weight:750}
+.action-button:hover,.action-button:focus-visible{background:var(--ink);color:#fff;outline:none}
+.action-button.liked{background:var(--accent);border-color:var(--accent);color:#fff}
+.action-icon{font-size:16px;line-height:1}
+.author{max-width:var(--article);margin:0 auto;padding:26px 24px 58px;border-top:1px solid var(--ink);font-size:13px;line-height:1.8;color:#45413c}
+.author p{margin:0}.author strong{color:var(--ink)}
+
+/* Right-side menu drawer: permanent article pattern for contents + dictionary. */
+.menu-overlay{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.42);opacity:0;pointer-events:none;transition:opacity .18s ease}
+.menu-overlay.open{opacity:1;pointer-events:auto}
+.menu-drawer{position:absolute;top:0;right:0;width:min(470px,94vw);height:100%;background:var(--paper2);border-left:1px solid var(--ink);transform:translateX(100%);transition:transform .22s ease;display:flex;flex-direction:column}
+.menu-overlay.open .menu-drawer{transform:translateX(0)}
+.menu-head{height:58px;flex:0 0 auto;padding:0 18px 0 22px;border-bottom:1px solid var(--ink);display:flex;align-items:center;justify-content:space-between}
+.menu-head strong{font-size:11px;letter-spacing:.14em}
+.menu-close{width:34px;height:34px;border:1px solid var(--ink);background:transparent;cursor:pointer;font-size:22px;line-height:1}
+.menu-close:hover,.menu-close:focus-visible{background:var(--ink);color:#fff;outline:none}
+.menu-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--ink)}
+.menu-tab{border:0;border-right:1px solid var(--ink);background:transparent;padding:13px 10px;cursor:pointer;font-size:11px;font-weight:850;letter-spacing:.1em}
+.menu-tab:last-child{border-right:0}.menu-tab.active{background:var(--ink);color:#fff}
+.menu-panel{display:none;overflow:auto;min-height:0;flex:1}.menu-panel.active{display:block}
+.toc-list{list-style:none;margin:0;padding:0}
+.toc-list li{border-bottom:1px solid var(--line)}
+.toc-list a{display:grid;grid-template-columns:35px 1fr;gap:9px;padding:13px 22px;text-decoration:none;font-size:13px;line-height:1.55}
+.toc-list a span{color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.06em;padding-top:3px}
+.toc-list a:hover,.toc-list a:focus-visible{background:rgba(0,0,0,.04);outline:none}
+.index-tools{position:sticky;top:0;z-index:2;background:var(--paper2);padding:16px 18px;border-bottom:1px solid var(--ink)}
+.index-search{width:100%;height:44px;border:1px solid var(--ink);background:#fff;padding:0 12px;border-radius:0;outline:none}
+.index-search:focus{box-shadow:inset 0 -3px 0 var(--accent)}
+.index-count{display:block;margin-top:7px;font-size:10px;color:var(--muted);letter-spacing:.08em}
+.drawer-tip{margin:14px 18px 0;border:1px solid var(--ink);background:var(--paper);padding:14px}
+.drawer-tip[hidden]{display:none}
+.drawer-tip strong{display:block;font-family:var(--serif);font-size:20px;line-height:1.4;margin-bottom:7px}
+.drawer-tip p{margin:0 0 8px;font-size:13px;line-height:1.75}
+.drawer-tip small{color:var(--muted);font-size:10px}
+.index-list{list-style:none;margin:0;padding:0}
+.index-item{border-bottom:1px solid var(--line)}
+.index-open{width:100%;border:0;background:transparent;padding:12px 18px;text-align:left;cursor:pointer;display:block}
+.index-open:hover,.index-open:focus-visible{background:rgba(0,0,0,.04);outline:none}
+.index-name{display:block;font-size:14px;font-weight:800;line-height:1.4}
+.index-meta{display:block;margin-top:4px;font-size:9px;color:var(--muted);letter-spacing:.04em}
+
+.tip-dialog{width:min(560px,calc(100vw - 28px));max-height:74vh;padding:0;border:1px solid var(--ink);border-radius:0;background:var(--paper2);color:var(--ink);box-shadow:0 24px 70px rgba(0,0,0,.25)}
+.tip-dialog::backdrop{background:rgba(0,0,0,.48)}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 18px;border-bottom:1px solid var(--ink)}
+.dialog-head p{margin:0;font-size:10px;color:var(--accent);font-weight:900;letter-spacing:.15em}
+.dialog-head h2{margin:2px 0 0;font-family:var(--serif);font-size:23px}
+.dialog-close{width:36px;height:36px;border:1px solid var(--ink);background:transparent;cursor:pointer;font-size:22px}
+.dialog-close:hover,.dialog-close:focus-visible{background:var(--ink);color:#fff;outline:none}
+.dialog-body{padding:18px}.dialog-body p{margin:0 0 12px;line-height:1.85}.dialog-meta{font-size:10px!important;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;z-index:120;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:8px 12px;font-size:12px;pointer-events:none;transition:.18s ease}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:980px){
+  .hero-inner{grid-template-columns:1fr}.hero-code{border-left:0;border-top:1px solid var(--line);padding:16px 0 0;display:flex;gap:16px;align-items:center}.hero-code strong{margin:0}
+  .layout{grid-template-columns:minmax(0,1fr);max-width:800px;gap:0}.rail{display:none}.article{width:100%;max-width:var(--article);margin:auto}
+  .article-actions,.author{max-width:792px}
+}
+@media(max-width:620px){
+  body{font-size:16px;line-height:1.92}.sitebar-inner{padding:0 16px}.brand{font-size:10px}.menu-button{font-size:10px}
+  .hero-inner{padding:44px 16px 40px;gap:30px}.hero h1{font-size:36px;line-height:1.27}.hero-deck{font-size:16px}.spoiler-inner{padding:9px 16px}
+  .layout{padding:42px 16px 80px}.article h2{font-size:29px;margin-top:4.5rem}.article h3{font-size:19px}.article blockquote{font-size:18px;padding-left:16px}
+  .article table{font-size:12px;min-width:650px}.article-actions{padding:0 16px 38px}.author{padding:22px 16px 48px}.action-button{flex:1 1 auto;justify-content:center}
+  .menu-drawer{width:100vw}.menu-head{padding-left:16px}.toc-list a{padding-left:16px;padding-right:16px}.index-tools{padding:14px 16px}.drawer-tip{margin-left:16px;margin-right:16px}.index-open{padding-left:16px;padding-right:16px}
+}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-@media print{.topline,.spoiler-bar,.mobile-toc,.rail,.pocket-index,.tip-dialog,.footer{display:none!important}.hero{border-bottom:0}.hero-inner{display:block;padding:20px 0}.layout{display:block;padding:0}.article{max-width:none}.tip-trigger{border:0;padding:0}.tip-trigger::after{content:""}body{background:#fff;font-size:11pt}.article h2{break-after:avoid}.article table{font-size:9pt}}
+@media print{.sitebar,.spoiler-bar,.rail,.menu-overlay,.tip-dialog,.article-actions,.toast{display:none!important}.hero{border-bottom:0}.hero-inner{display:block;padding:20px 0}.layout{display:block;padding:0}.article{max-width:none}.tip-trigger{border:0;padding:0}.tip-trigger::after{content:""}body{background:#fff;font-size:11pt}.author{max-width:none;padding-left:0;padding-right:0}}
 '''
 
-# Fix mobile table overflow by wrapping tables in article content.
-article_soup=BeautifulSoup(article_inner,'html.parser')
-for table in article_soup.find_all('table'):
-    wrap=article_soup.new_tag('div',attrs={'class':'table-wrap','role':'region','aria-label':'横スクロールできる表','tabindex':'0'})
-    table.wrap(wrap)
-article_inner=str(article_soup)
-
-js=r'''
+js = r'''
 (() => {
   const tips = JSON.parse(document.getElementById('tips-data').textContent);
-  const cat = {character:'人物',organization:'組織',technology:'技術',power:'能力',concept:'概念',place:'場所',ura:'裏サクセス',meta:'メタ'};
+  const cat = {series:'シリーズ',system:'遊び方',character:'人物',organization:'組織',technology:'技術',power:'能力',concept:'概念',place:'場所',ura:'裏サクセス',meta:'メタ'};
   const spoiler = {low:'軽度',medium:'中',high:'高',critical:'核心'};
-  const railName = document.getElementById('rail-tip-name');
-  const railSummary = document.getElementById('rail-tip-summary');
-  const railMeta = document.getElementById('rail-tip-meta');
-  const dialog = document.getElementById('tip-dialog');
-  const dName = document.getElementById('dialog-tip-name');
-  const dSummary = document.getElementById('dialog-tip-summary');
-  const dMeta = document.getElementById('dialog-tip-meta');
-  const close = document.getElementById('dialog-close');
+  const byId = id => document.getElementById(id);
+
+  const railName = byId('rail-tip-name');
+  const railSummary = byId('rail-tip-summary');
+  const railMeta = byId('rail-tip-meta');
+  const dialog = byId('tip-dialog');
+  const dName = byId('dialog-tip-name');
+  const dSummary = byId('dialog-tip-summary');
+  const dMeta = byId('dialog-tip-meta');
+  const dClose = byId('dialog-close');
   let returnFocus = null;
 
-  function renderTip(key, openDialog=false){
+  const tipMeta = t => `${cat[t.category] || t.category} · 初出 ${t.first} · SPOILER ${spoiler[t.spoiler] || t.spoiler}`;
+  function renderRail(key){
     const t=tips[key]; if(!t) return;
-    const meta=`${cat[t.category] || t.category} · 初出 ${t.first} · SPOILER ${spoiler[t.spoiler] || t.spoiler}`;
-    railName.textContent=t.name; railSummary.textContent=t.summary; railMeta.textContent=meta;
-    dName.textContent=t.name; dSummary.textContent=t.summary; dMeta.textContent=meta;
-    if(openDialog && typeof dialog.showModal==='function' && !dialog.open){ dialog.showModal(); close.focus(); }
+    railName.textContent=t.name; railSummary.textContent=t.summary; railMeta.textContent=tipMeta(t);
+  }
+  function openTipDialog(key, source){
+    const t=tips[key]; if(!t) return;
+    returnFocus=source || null;
+    dName.textContent=t.name; dSummary.textContent=t.summary; dMeta.textContent=tipMeta(t);
+    if(typeof dialog.showModal==='function' && !dialog.open){ dialog.showModal(); dClose.focus(); }
   }
   document.addEventListener('click', e => {
-    const btn=e.target.closest('[data-tip]'); if(!btn) return;
+    const btn=e.target.closest('.tip-trigger'); if(!btn) return;
     const isMobile=window.matchMedia('(max-width: 980px)').matches;
-    returnFocus=btn; renderTip(btn.dataset.tip,isMobile);
+    renderRail(btn.dataset.tip);
+    if(isMobile) openTipDialog(btn.dataset.tip, btn);
   });
-  close.addEventListener('click',()=>dialog.close());
+  dClose.addEventListener('click',()=>dialog.close());
   dialog.addEventListener('close',()=>{ if(returnFocus) returnFocus.focus(); });
-  dialog.addEventListener('click',e=>{ if(e.target===dialog){ const r=dialog.getBoundingClientRect(); const inside=e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom; if(!inside) dialog.close(); }});
 
-  const search=document.getElementById('index-search');
-  const count=document.getElementById('index-count');
-  const items=[...document.querySelectorAll('.index-item')];
+  // Drawer menu
+  const overlay=byId('menu-overlay'), drawer=byId('menu-drawer'), menuOpen=byId('menu-open'), menuClose=byId('menu-close');
+  let menuReturn=null;
+  function openMenu(){ menuReturn=document.activeElement; overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); menuOpen.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; menuClose.focus(); }
+  function closeMenu(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); menuOpen.setAttribute('aria-expanded','false'); document.body.style.overflow=''; if(menuReturn) menuReturn.focus(); }
+  menuOpen.addEventListener('click',openMenu); menuClose.addEventListener('click',closeMenu);
+  overlay.addEventListener('click',e=>{ if(e.target===overlay) closeMenu(); });
+  document.addEventListener('keydown',e=>{
+    if(!overlay.classList.contains('open')) return;
+    if(e.key==='Escape'){ closeMenu(); return; }
+    if(e.key==='Tab'){
+      const focusable=[...drawer.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>!el.hidden && el.offsetParent!==null);
+      if(!focusable.length) return;
+      const first=focusable[0], last=focusable[focusable.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  });
+  document.querySelectorAll('.toc-list a').forEach(a=>a.addEventListener('click',closeMenu));
+
+  const tabs=[...document.querySelectorAll('.menu-tab')];
+  const panels=[...document.querySelectorAll('.menu-panel')];
+  tabs.forEach(tab=>tab.addEventListener('click',()=>{
+    tabs.forEach(t=>{ const active=t===tab; t.classList.toggle('active',active); t.setAttribute('aria-selected',active?'true':'false'); });
+    panels.forEach(p=>p.classList.toggle('active',p.id===tab.getAttribute('aria-controls')));
+  }));
+
+  // Dictionary search + in-drawer detail
+  const search=byId('index-search'), count=byId('index-count'), items=[...document.querySelectorAll('.index-item')];
+  const detail=byId('drawer-tip'), detailName=byId('drawer-tip-name'), detailText=byId('drawer-tip-text'), detailMeta=byId('drawer-tip-meta');
   function filter(){
     const q=search.value.trim().toLowerCase(); let n=0;
     items.forEach(li=>{ const hit=!q || li.dataset.search.toLowerCase().includes(q); li.hidden=!hit; if(hit)n++; });
-    count.textContent=`${n} / ${items.length}`;
+    count.textContent=`${n} / ${items.length} TERMS`;
   }
   search.addEventListener('input',filter); filter();
+  document.querySelectorAll('.index-open').forEach(btn=>btn.addEventListener('click',()=>{
+    const t=tips[btn.dataset.tipIndex]; if(!t) return;
+    detail.hidden=false; detailName.textContent=t.name; detailText.textContent=t.summary; detailMeta.textContent=tipMeta(t);
+    detail.scrollIntoView({block:'nearest'});
+  }));
 
-  const current = location.hash && document.querySelector(location.hash);
-  if(current) setTimeout(()=>current.scrollIntoView(),0);
+  // Like button: deliberately no fake public count. This is only a local UI state until a backend is wired.
+  const like=byId('like-button');
+  const likeKey='yu-zora-pawapoke-like';
+  try{ if(localStorage.getItem(likeKey)==='1'){ like.classList.add('liked'); like.setAttribute('aria-pressed','true'); like.querySelector('.action-label').textContent='好き済み'; } }catch(_e){}
+  like.addEventListener('click',()=>{
+    const next=!like.classList.contains('liked');
+    like.classList.toggle('liked',next); like.setAttribute('aria-pressed',next?'true':'false'); like.querySelector('.action-label').textContent=next?'好き済み':'好き';
+    try{ localStorage.setItem(likeKey,next?'1':'0'); }catch(_e){}
+  });
+
+  const share=byId('share-x');
+  share.addEventListener('click',e=>{
+    e.preventDefault();
+    const u=`https://twitter.com/intent/tweet?text=${encodeURIComponent(document.title)}&url=${encodeURIComponent(location.href)}`;
+    window.open(u,'_blank','noopener,noreferrer,width=720,height=520');
+  });
+  const toast=byId('toast');
+  function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>toast.classList.remove('show'),1800); }
+  byId('copy-link').addEventListener('click',async()=>{
+    try{ await navigator.clipboard.writeText(location.href); showToast('リンクをコピーしました'); }
+    catch(_e){ showToast('リンクをコピーできませんでした'); }
+  });
 })();
 '''
 
-full=f'''<!doctype html>
+full = f'''<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>野球ゲームの彼女ルートに、世界史を隠すな。――パワポケの「二つの裏」 | YU-ZORA</title>
-<meta name="description" content="『パワプロクンポケット』1〜14の彼女ルートや周回の奥に隠れた連続史と、もう一つのゲーム『裏サクセス』。パワポケの二つの『裏』を、初見向けTips付きでたどる長編特集。">
+<meta name="description" content="『パワプロクンポケット』1〜14の彼女ルートや周回の奥に隠れた連続史と、もう一つのゲーム『裏サクセス』。パワプロ未経験者向けTips付きでたどる長編特集。">
 <style>{css}</style>
 </head>
 <body>
 <a class="skip-link" href="#main">本文へ移動</a>
-<header class="topline"><div class="topline-inner"><span class="brand">YU-ZORA / LONGFORM FEATURE</span><span class="top-meta">PAWAPOKE RESEARCH · 001</span></div></header>
+<header class="sitebar"><div class="sitebar-inner"><span class="brand">YU-ZORA / LONGFORM FEATURE</span><button class="menu-button" id="menu-open" type="button" aria-haspopup="dialog" aria-controls="menu-drawer" aria-expanded="false">CONTENTS / INDEX <span class="menu-icon" aria-hidden="true"><span></span></span></button></div></header>
 <section class="hero" aria-labelledby="page-title"><div class="hero-inner"><div>
 <p class="eyebrow">BASEBALL GAME / HIDDEN WORLD HISTORY / URA SUCCESS</p>
 <h1 id="page-title">野球ゲームの彼女ルートに、世界史を隠すな。<br>――パワポケの「二つの裏」</h1>
-<p class="hero-deck">彼女ルートの奥にある1〜14の連続史と、メニューの裏側にある“もう一本のゲーム”。二つの「裏」を同じ地図に置く。</p>
-</div><div class="hero-code"><strong>01—14</strong><span>1999–2011<br>LONGFORM / SPOILER<br>65 POCKET TIPS</span></div></div></section>
+<p class="hero-deck">彼女ルートの奥にある1〜14の連続史と、メニューの裏側にある“もう一本のゲーム”。パワプロを知らない人でも迷子にならないTipsを添えて、二つの「裏」を同じ地図に置く。</p>
+</div><div class="hero-code"><strong>01—14</strong><span>1999–2011<br>LONGFORM / SPOILER<br>{len(tips)} POCKET TIPS</span></div></div></section>
 <div class="spoiler-bar"><div class="spoiler-inner"><strong>SPOILER WARNING</strong> — 『パワプロクンポケット』1〜14のシナリオ、彼女候補、真ルート、裏サクセスに触れます。</div></div>
-<details class="mobile-toc"><summary>CONTENTS / 目次</summary><ol>{toc_html}</ol></details>
 <main id="main" class="layout">
 <article class="article">{article_inner}</article>
-<aside class="rail" aria-label="人物・用語Tips">
-<div class="rail-block"><p class="rail-kicker">POCKET TIP / CLICK A TERM</p><h2 id="rail-tip-name">本文の赤い点線語を選択</h2><p id="rail-tip-summary" class="tip-summary">人物・組織・技術を、本文から離れずに補足します。初見の人だけ開けばOKです。</p><div id="rail-tip-meta" class="rail-meta" aria-live="polite">65 terms loaded</div></div>
-<nav aria-label="記事内目次"><h2>CONTENTS</h2><ol>{toc_html}</ol><a class="rail-index-link" href="#pocket-index">POCKET INDEX — 65語一覧 ↓</a></nav>
-</aside>
+<aside class="rail" aria-label="本文Tips"><div class="tip-card"><p class="tip-kicker">POCKET TIP / CLICK A DOTTED TERM</p><h2 id="rail-tip-name">赤い「?」の語を選ぶ</h2><p id="rail-tip-summary" class="tip-summary">パワプロもサクセスも知らない人向けの基本語から、人物・組織・技術まで。本文を離れずに補足します。</p><div id="rail-tip-meta" class="tip-meta" aria-live="polite">{len(tips)} TERMS LOADED</div><p class="tip-hint">用語をまとめて探したい場合は、右上の CONTENTS / INDEX から検索できます。</p></div></aside>
 </main>
-<section class="pocket-index" id="pocket-index" aria-labelledby="pocket-index-title"><div class="pocket-inner">
-<div class="pocket-head"><h2 id="pocket-index-title">POCKET INDEX<br>人物・組織・用語 65</h2><p>本文で触れ切れなかった語も含む、調査用の小さな索引。クリックすると補足を表示します。ネタバレ度は「核心」が最も高い表記です。</p></div>
-<div class="index-controls"><label><span class="sr-only">用語検索</span><input class="index-search" id="index-search" type="search" placeholder="人物・組織・用語を検索" autocomplete="off"></label><output class="index-count" id="index-count" for="index-search">65 / 65</output></div>
-<ul class="index-list">{index_html}</ul>
-</div></section>
-<footer class="footer"><span>YU-ZORA / PAWAPOKE LONGFORM</span><span>Research notes are maintained separately in this repository.</span></footer>
+<section class="article-actions" aria-label="記事アクション">
+<button class="action-button" id="like-button" type="button" aria-pressed="false"><span class="action-icon" aria-hidden="true">♥</span><span class="action-label">好き</span></button>
+<a class="action-button" id="share-x" href="#"><span class="action-icon" aria-hidden="true">𝕏</span><span>Xで共有</span></a>
+<button class="action-button" id="copy-link" type="button"><span class="action-icon" aria-hidden="true">↗</span><span>リンクをコピー</span></button>
+</section>
+<footer class="author">{author_html or '<p><strong>Author　夕空ユウ（@yuu_mintia）</strong><br>趣味で個人制作のブラウザゲームを公開している。パワポケ、とくに裏サクセスはゲーム制作の大きな原点の一つ。</p>'}</footer>
+
+<div class="menu-overlay" id="menu-overlay" aria-hidden="true"><aside class="menu-drawer" id="menu-drawer" role="dialog" aria-modal="true" aria-label="記事メニュー">
+<div class="menu-head"><strong>POCKET MENU</strong><button class="menu-close" id="menu-close" type="button" aria-label="メニューを閉じる">×</button></div>
+<div class="menu-tabs" role="tablist"><button class="menu-tab active" id="tab-contents" type="button" role="tab" aria-selected="true" aria-controls="panel-contents">CONTENTS / 目次</button><button class="menu-tab" id="tab-index" type="button" role="tab" aria-selected="false" aria-controls="panel-index">INDEX / 用語</button></div>
+<nav class="menu-panel active" id="panel-contents" role="tabpanel" aria-labelledby="tab-contents" aria-label="記事内目次"><ol class="toc-list">{toc_html}</ol></nav>
+<section class="menu-panel" id="panel-index" role="tabpanel" aria-labelledby="tab-index" aria-label="用語索引"><div class="index-tools"><label><span class="sr-only">用語を検索</span><input class="index-search" id="index-search" type="search" placeholder="人物・用語・遊び方を検索" autocomplete="off"></label><output class="index-count" id="index-count" for="index-search"></output></div><div class="drawer-tip" id="drawer-tip" hidden><strong id="drawer-tip-name"></strong><p id="drawer-tip-text"></p><small id="drawer-tip-meta"></small></div><ul class="index-list">{index_html}</ul></section>
+</aside></div>
+
 <dialog class="tip-dialog" id="tip-dialog" aria-labelledby="dialog-tip-name"><div class="dialog-head"><div><p>POCKET TIP</p><h2 id="dialog-tip-name">Tips</h2></div><button id="dialog-close" class="dialog-close" type="button" aria-label="Tipsを閉じる">×</button></div><div class="dialog-body"><p id="dialog-tip-summary"></p><p id="dialog-tip-meta" class="dialog-meta"></p></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script type="application/json" id="tips-data">{tips_json}</script>
 <script>{js}</script>
 </body></html>'''
-(root/'article/full.html').write_text(full,encoding='utf-8')
-print('wrote',root/'article/full.html','bytes',len(full.encode('utf-8')),'annotated tips',len(used_keys),sorted(used_keys))
+
+out = root / 'article/full.html'
+out.write_text(full, encoding='utf-8')
+print('wrote', out, 'bytes', len(full.encode('utf-8')), 'tips', len(tips), 'annotated', len(used_keys))
