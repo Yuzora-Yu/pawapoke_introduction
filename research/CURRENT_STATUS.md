@@ -1,6 +1,16 @@
 # 現在の調査状況
 
-更新：2026-09-05
+更新：2026-09-06
+
+
+## 公開記事の現在状態
+
+- `article/full.md` を完全版本文の正本として新設。
+- `article/full.html` を旧HTMLの継ぎ足しではなく全面再生成。
+- `data/tips.json` 65語をHTML末尾のPOCKET INDEXへ全収録し、本文中29語をクリックTips化。
+- `article/note.md` を入口版として新設。
+- 公開先は「note＝入口 / YU-ZORA＝完全版」の方向。YU-ZORA側のセクション名・URLは未確定。
+- 次回AIの再開点は `AI_HANDOFF.md`。
 
 ## 今回かなり固まったもの
 

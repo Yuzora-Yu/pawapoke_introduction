@@ -2,26 +2,34 @@
 
 Current repository file inventory. Old versions are managed by Git history.
 
-- Files: 66
+- Files: 73
 - Tips entries: 65
 
 | File | Bytes | SHA256 |
 |---|---:|---|
-| `AGENTS.md` | 7562 | `2acc37907730d4d7585168249978cd182b3e8343059e72e6b5d040ed5fb862bb` |
+| `.gitignore` | 33 | `fa5b2d4433b835933b22140e01833a4972a0ee8532d76951286e3dd071994af0` |
+| `AGENTS.md` | 7686 | `12766d898102e7617836b92e870e47823242be0162fd891f72cb08c455a8bfe8` |
+| `AI_HANDOFF.md` | 7258 | `679d253bbace2cc38be0b3ee1b49c1dd886cb924e26c207baa8a19cc61a4d52d` |
 | `PROJECT.md` | 8458 | `fffc36bca1efd13aeba33c9b8d6411647160efffbd855f4ee72e651b84eb8be6` |
-| `README.md` | 1969 | `47d92e282f3b096a2692bdb08d77e7c2ca9861f26a91aab573dc284f23026db1` |
-| `RESEARCH_MAP.md` | 4326 | `4f73bafceb61c7724ba8d85bcd3ca1670759a53e8585b08dc47cdc01ac8cc11a` |
-| `article/README.md` | 978 | `9a7861e4ee8cc975f30f1c70964d7f5063bb8d5eeab54b01bc6352d4959f2cc4` |
+| `README.md` | 2250 | `e5a2ae67748d41acdbf30c29d39ab931d9265f8284c01a7994e8e2af53e0092b` |
+| `RESEARCH_MAP.md` | 4529 | `d78b0624acdb18a7ce829a8effbdbc3a87d447375b7ee89a029d0c0db60cd107` |
+| `WEB_DESIGN_RULES.md` | 3017 | `1147add44745e24b41d04f595dda10d1bec59e51178e867de5bdf5396af177e4` |
+| `article/README.md` | 1290 | `1336e009c062599a48bb84002a5af8cdb42567e56e4325244d4b87a5023a1ac8` |
 | `article/author-note.md` | 1609 | `127533e6b0109d70c22aea3702923124cf0b4d079e7ec2843aa2c87ea665ba50` |
+| `article/build_full_html.py` | 21022 | `36ffb05ea099e0fa47c54b83991797525876f3eb9ebb52591536adcd889f9f8e` |
 | `article/fragments.md` | 5156 | `e721702506e5bcc42ca56ded1a652ecbf2d9cfdf9494821cd0d212747dbd6a74` |
-| `article/outline.md` | 7092 | `04880dfb0575b25ad712e42737ffb333d983157dd93f2170ae0933017997659c` |
+| `article/full.html` | 99581 | `bbccccaafc371b671b0cf23d2dde2e3ab45ac02a75c24a45e5511dc628e2e6d5` |
+| `article/full.md` | 28565 | `68ff898a7370d7f8b26af6cc036719ace633d6565408c2b05dfa9e351bfde755` |
+| `article/note.md` | 5148 | `f7cf100d74a57d5ecb4e08a73033e255a6c367c1af6d4a6c3692791103824c6f` |
+| `article/outline.md` | 5676 | `8277235c38e2dcfc384d7685702487ff270495d4c4879bdd5644455c261eebd5` |
 | `article/related/README.md` | 1688 | `94f2127df8c600ae600f6d6d6c1c7efe564a11b85d195694f0e598a87c3da0e4` |
 | `article/ui-notes.md` | 2076 | `88a7bf68043110ef08b1ee3be6fdf1fee4a5edeb9f78ae13491b534d563ac948` |
 | `assets/README.md` | 533 | `b89b811b9d5bfdd3373fb72249e5fbd85a9a01cf12f96b57f4af623bb025ffa9` |
 | `assets/diagrams/README.md` | 1141 | `ff06239bdf12809cb5a075bff40714df4f102fea8e35d8688971e222ac7419ee` |
-| `data/tips.json` | 19257 | `abd9b0f9eb330f9ec28b521489c924809fb57936d634d9fdc669622a41081790` |
+| `data/tips.json` | 19236 | `0094c0a2279445cc3319fc900ff4b41366864c63d304c19073cf6ead26440e9e` |
 | `data/works.json` | 1485 | `acfe923d267d4352f87882f669dbdcb5a08f72a665860a9dda1faeafeafb4791` |
-| `research/CURRENT_STATUS.md` | 4352 | `bc859bfdd141f1ce7b82601e8a29f37cc3bddfe22b181adc257a697d1f9767bd` |
+| `requirements-dev.txt` | 35 | `c0abed760b99b6eaa988c95912b8376ab7e4c636dec00f92f91a5d88beeb0062` |
+| `research/CURRENT_STATUS.md` | 4856 | `82ae0a523202ea558b4cb2567b04c72a25209c020bd2acf32d6b7588a5aed9c1` |
 | `research/README.md` | 1468 | `05fe121defe0c24ba76a36e77bf1c018965e3ec770ea58807318ee37bdf4b73a` |
 | `research/access/how-to-play.md` | 970 | `0a73203e446e1f45282ac03a989773f72201429fbc976f24441bd277f59950b7` |
 | `research/canon/catastrophe.md` | 4041 | `b2d9ad8f12388f0b29bcd9097d87c6c257f299d83c985cf1d64aaee97486f98b` |

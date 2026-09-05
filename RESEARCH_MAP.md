@@ -4,10 +4,14 @@
 ただしGit内には**現在の最新版だけ**を残す。
 
 ## 1. 主記事を直すとき
+- `AI_HANDOFF.md` — 次回AI向けの現在状態・次作業
 - `PROJECT.md` — 現在の編集判断
+- `article/full.md` — **完全版本文の正本**
+- `article/note.md` — note向け入口版
+- `article/full.html` — Tips付き公開候補HTML
+- `article/build_full_html.py` — HTML生成
 - `article/outline.md` — 章立て
 - `article/fragments.md` — 使える文章
-- `article/preview.html` — 現在の通読用仮記事
 - `article/ui-notes.md` — Tips UI
 - `article/author-note.md` — 13の思い出 / 自作ゲームとの接続
 

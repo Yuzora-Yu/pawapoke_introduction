@@ -21,11 +21,22 @@
 - 訂正は上書きし、過去はGit履歴へ任せる。
 
 ## 入口
+- **次回AIの引継ぎ：`AI_HANDOFF.md`**
 - 現在の判断：`PROJECT.md`
-- 調査全体の地図：`RESEARCH_MAP.md`
 - AI作業ルール：`AGENTS.md`
-- 通読用仮記事：`article/preview.html`
+- 調査全体の地図：`RESEARCH_MAP.md`
+- 完全版本文：`article/full.md`
+- Tips付き完全版HTML：`article/full.html`
+- note版：`article/note.md`
 - ファクトチェック：`research/sources/factcheck.md`
+
+## HTML更新
+
+```bash
+python article/build_full_html.py
+```
+
+`article/full.md` と `data/tips.json` を反映して `article/full.html` を上書き生成する。
 
 ## 最重要ルール
 - **パカーディ・ハイネン**。
