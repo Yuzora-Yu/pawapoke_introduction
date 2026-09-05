@@ -28,6 +28,8 @@
 - 完全版本文：`article/full.md`
 - Tips付き完全版HTML：`article/full.html`
 - note版：`article/note.md`
+- 身内向け・入門版PowerPoint：`slides/pawapoke_fukyo_intro.pptx`
+- スライド生成元：`slides/build_deck.js`
 - ファクトチェック：`research/sources/factcheck.md`
 
 ## HTML更新
@@ -37,6 +39,15 @@ python article/build_full_html.py
 ```
 
 `article/full.md` と `data/tips.json` を反映して `article/full.html` を上書き生成する。
+
+## 身内向けPowerPoint更新
+
+```bash
+node slides/build_deck.js
+```
+
+`article/full.md` と現在の調査判断を要約した、16:9・12枚の入門用スライド。
+表紙および主要ビジュアルは `assets/pawapoke_fukyo/cover.png` を起点に構成する。
 
 ## 最重要ルール
 - **パカーディ・ハイネン**。

@@ -72,6 +72,20 @@
 - 入口用。完全版への導線。
 - 公開URLが確定するまで具体URLを固定しない。
 
+### 身内向け・入門版PowerPoint
+
+- 成果物：`slides/pawapoke_fukyo_intro.pptx`
+- 生成元：`slides/build_deck.js`
+- 全体プレビュー：`slides/montage.png`
+- 16:9、12枚
+- ユーザー提供の表紙画像：`assets/pawapoke_fukyo/cover.png`
+- 同画像から切り出した派生素材も `assets/pawapoke_fukyo/` に保存
+- 再生成：`node slides/build_deck.js`
+- レイアウト検査：`python /home/oai/skills/slides/container_tools/slides_test.py slides/pawapoke_fukyo_intro.pptx`
+
+構成は「そもそもパワポケ」→「二つの裏」→「8から隠す／11から施錠」→長距離伏線→彼女候補→裏サクセス→13推薦→入口案→締め。
+記事の縮小版ではなく、未経験者へ10分前後で刺すことを優先する。
+
 ## 4. 現在の文章トーン
 
 前稿の問題：

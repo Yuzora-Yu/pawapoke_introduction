@@ -2,16 +2,16 @@
 
 Current repository file inventory. Old versions are managed by Git history.
 
-- Files: 73
+- Files: 83
 - Tips entries: 110
 
 | File | Bytes | SHA256 |
 |---|---:|---|
 | `.gitignore` | 33 | `fa5b2d4433b835933b22140e01833a4972a0ee8532d76951286e3dd071994af0` |
 | `AGENTS.md` | 7686 | `12766d898102e7617836b92e870e47823242be0162fd891f72cb08c455a8bfe8` |
-| `AI_HANDOFF.md` | 10454 | `13c84119575d34dbd1db4646e72cd984af4bebea8a93bfd387ac88100ac8aa49` |
+| `AI_HANDOFF.md` | 11243 | `b550c75e17ad4d873c72f246ddf128159aaaba054282a90b192807ea0772ab5f` |
 | `PROJECT.md` | 8790 | `a33e55882fc4d79b2663e643264fa930eb07efa40cf40757a3b2709364bbe073` |
-| `README.md` | 2222 | `0063b7d2c2d1c0ee0ab8a6459b72f2371f96298f1fa1d99e2693ea5a2b13e946` |
+| `README.md` | 2620 | `f6e159832cebc3ddaa27a9d8ee47ff36ff5ce2fec419f741b14087acde11277a` |
 | `RESEARCH_MAP.md` | 4626 | `d7a5ec9a87c2f9cdc0ca8e93226ca4615fdb943376d9622e6d4eeb3cf65c56a7` |
 | `WEB_DESIGN_RULES.md` | 3660 | `a26f598196b51654114127a8ac14f90144ce464af50c7368efa4f35c945c4524` |
 | `article/README.md` | 1503 | `74d80df1a6ad5a112d9f8b61b996cd57f60729648de3a698d1b275c2f3ca4e3c` |
@@ -22,10 +22,16 @@ Current repository file inventory. Old versions are managed by Git history.
 | `article/full.md` | 38378 | `9f44b0d15a10e300bdb41e9e7256c31ba6ab49136db9ae22d9e8d436eefda7b8` |
 | `article/note.md` | 5572 | `1792a0d2aa6fad87ee6a6854f21f9e1f05bad5c7ec1c5f2538535c651a64ba71` |
 | `article/outline.md` | 6892 | `4a3f93ba6369f1f4d3b98f06e44605a298a0c61d96fab3b9329b62372b7d96ed` |
+| `article/preview.html` | 40043 | `a876a8e2ea1d645d80cef145b89dfecdf256dc07a109559e7e47194965747d9c` |
 | `article/related/README.md` | 1688 | `94f2127df8c600ae600f6d6d6c1c7efe564a11b85d195694f0e598a87c3da0e4` |
 | `article/ui-notes.md` | 3376 | `d682c66a19026035abb1b530a306835a6ee951858c6492ac7b029721b5244fd7` |
 | `assets/README.md` | 533 | `b89b811b9d5bfdd3373fb72249e5fbd85a9a01cf12f96b57f4af623bb025ffa9` |
 | `assets/diagrams/README.md` | 1141 | `ff06239bdf12809cb5a075bff40714df4f102fea8e35d8688971e222ac7419ee` |
+| `assets/pawapoke_fukyo/character.png` | 1033464 | `a80bb88e16acc3afabc8bef0928e62c4d8b32e7528af37e2da3a1c03565ca55f` |
+| `assets/pawapoke_fukyo/cover.png` | 3373193 | `e7a437836880db066ce84b3a282def1244dc7e450d8ae9253bb68ae73dbce045` |
+| `assets/pawapoke_fukyo/field.png` | 889867 | `d482ce6628f5639175e05789ccf1f92656d617da244405ed6e47e61c7ed2f52a` |
+| `assets/pawapoke_fukyo/map.png` | 292456 | `315ff5effa61a5a92d396fee7b98942c4ba4cc0cd198491abe7fe317c4d6a0da` |
+| `assets/pawapoke_fukyo/vortex.png` | 288685 | `1ded64bdd6649a38622bfc973bc7a36f8104b9ac6132ad57a9ce851141cbce51` |
 | `data/tips.json` | 34826 | `1b25bd33f48185820a9d4d6aa57f64437d50907402714b9e9653003c42a5de01` |
 | `data/works.json` | 1485 | `acfe923d267d4352f87882f669dbdcb5a08f72a665860a9dda1faeafeafb4791` |
 | `requirements-dev.txt` | 35 | `c0abed760b99b6eaa988c95912b8376ab7e4c636dec00f92f91a5d88beeb0062` |
@@ -80,3 +86,7 @@ Current repository file inventory. Old versions are managed by Git history.
 | `research/ura-success/all-timeline.md` | 4390 | `e39d48f96146e0d6e389c8c7faf495d780c7ad827e845980c974b0e227ef8545` |
 | `research/ura-success/evolution-5-7-11-12-13.md` | 3919 | `e5d51549135fb0f0c6f7630746eedf3a4ebefeebb134f4abdf946898a3809ae2` |
 | `research/ura-success/world-connections.md` | 2037 | `e9551808aad0daa7be78d208bc57c4f0619ed5f8193246274fe1049981d38e27` |
+| `slides/README.md` | 2067 | `b7b79225408818de1a62793dc617cfa5daaf1614316474917a08c681ba9a3975` |
+| `slides/build_deck.js` | 27074 | `50c291c1a211b0e8134641904b609e893914616f6cca33c8b1f803b69fd1265f` |
+| `slides/montage.png` | 818402 | `edd8c2ab7dbeddd90b4543cc01b6ae7ffc9c6ebf33d0e88ee3e8fac2db751885` |
+| `slides/pawapoke_fukyo_intro.pptx` | 8974656 | `023116b75d8d609e31f1f24cbde66164b1981b5d099872f6255634fc2484999c` |
