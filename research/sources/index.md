@@ -161,3 +161,61 @@ https://w.atwiki.jp/storytellermirror/pages/1437.html
 
 カタストロフ後のジャジメント解体等の探索用。
 公式ではない。
+
+---
+
+# 追加：横断ネタ / 初見導線
+
+## パワポケ考察Wiki トップ
+https://wikiwiki.jp/pawapoke/
+
+非公式の有志考察Wiki。シリーズ横断の人物・組織・正史考察の重要な索引。
+記事内でも「気になった人の次の入口」として紹介する。
+ただし公式資料ではないため、断言強度は `policy.md` に従う。
+
+## 大神美智男
+https://wikiwiki.jp/pawapoke/%E5%A4%A7%E7%A5%9E%E7%BE%8E%E6%99%BA%E7%94%B7
+
+『4』で大神博之の父として初登場する整理。
+
+## 寺岡薫
+https://wikiwiki.jp/pawapoke/%E5%AF%BA%E5%B2%A1%E8%96%AB
+
+『3』→『12』の連続性確認用。
+
+## デウエス
+https://wikiwiki.jp/pawapoke/%E3%83%87%E3%82%A6%E3%82%A8%E3%82%B9
+
+『12』黒幕・寺岡薫のEsとの関係。
+
+## しあわせ草
+https://wikiwiki.jp/pawapoke/%E3%81%97%E3%81%82%E3%82%8F%E3%81%9B%E8%8D%89
+
+『6』しあわせ島→『10』超能力者開発の索引。
+
+## 大江和那
+https://wikiwiki.jp/pawapoke/%E5%A4%A7%E6%B1%9F%E5%92%8C%E9%82%A3
+
+しあわせ草エキスと重力系超能力。
+
+## 『9』主人公の正体考察
+https://wikiwiki.jp/pawapoke/%E4%B8%BB%E4%BA%BA%E5%85%AC%289%29%E3%81%AE%E6%AD%A3%E4%BD%93%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6
+
+レッド説。公式はノーコメントという整理を必ず併記。
+
+## 裏サクセス総論
+https://wikiwiki.jp/pawapoke/%E8%A3%8F%E3%82%B5%E3%82%AF%E3%82%BB%E3%82%B9
+
+裏サクセス一覧、世界間移動人物、14裏ジオット等の索引。
+
+## 『14』札侍編 ムサシ地方イベント
+https://w.atwiki.jp/poke14/pages/102.html
+
+重要：
+表「魔球編」トゥルーエンド済みで、札侍編終盤の `#4: ジオット` へ進む条件を記録。
+
+## YU-ZORA GAME PORTAL
+https://yu-zora.com/games/
+
+筆者が個人制作ブラウザゲームを公開するサイト。
+筆者紹介 / 「パワポケは自作ゲームの原点の一つ」という結びからリンク。

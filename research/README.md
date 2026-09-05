@@ -38,3 +38,16 @@
 4. 新しい出典は `sources/index.md` へ追加
 
 過去の判断を別ファイルとして残さない。
+
+## series/
+初見読者向けのシリーズ全体説明。
+
+- `beginner-guide.md` — 主人公の高校→プロ→社会人/その他ローテーション、人物Tips候補
+
+## canon/ の追加
+- `cross-series-connections.md` — 組織史だけでは伝わりにくい長距離接続をまとめる
+
+## ura-success/ の追加
+- `all-timeline.md` — 詳説5本以外を含めた裏サクセス全体年表
+
+- `research/CURRENT_STATUS.md` — 調査停止時点の到達点と次回TODO
