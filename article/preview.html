@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>野球ゲームの彼女ルートに、世界史を隠すな。――パワポケの「二つの裏」【仮稿】</title>
+<meta name="description" content="『パワプロクンポケット』シリーズの裏社会史と裏サクセスを、「二つの裏」という視点から読む仮記事。">
+<style>
+  :root{
+    --bg:#f6f5f1;
+    --paper:#fffdf9;
+    --text:#22201d;
+    --muted:#6a655e;
+    --line:#ddd7ce;
+    --accent:#9a2d26;
+    --accent-soft:#f7e8e5;
+    --blue:#244c73;
+    --blue-soft:#eaf1f7;
+    --note:#7b5a16;
+    --note-soft:#fbf4df;
+    --shadow:0 18px 50px rgba(44,34,24,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--text);
+    background:
+      radial-gradient(circle at 15% 0%, rgba(154,45,38,.06), transparent 30rem),
+      var(--bg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI","Yu Gothic","Noto Sans JP",sans-serif;
+    line-height:1.95;
+    letter-spacing:.015em;
+  }
+  a{color:var(--blue);text-decoration-thickness:.06em;text-underline-offset:.16em}
+  .page{max-width:980px;margin:0 auto;padding:44px 24px 96px}
+  .hero{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:46px 52px 38px;
+    box-shadow:var(--shadow);
+  }
+  .badge{
+    display:inline-block;
+    padding:6px 11px;
+    border-radius:999px;
+    font-size:.78rem;
+    font-weight:700;
+    background:var(--accent-soft);
+    color:var(--accent);
+    margin-right:7px;
+  }
+  .badge.gray{background:#efede8;color:#655f57}
+  h1{
+    margin:.55rem 0 1rem;
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    font-size:clamp(2rem,5vw,3.55rem);
+    line-height:1.28;
+    letter-spacing:-.025em;
+  }
+  .subtitle{font-size:1.05rem;color:var(--muted);margin:0}
+  .warning{
+    margin-top:24px;
+    padding:15px 18px;
+    border-left:4px solid var(--accent);
+    background:var(--accent-soft);
+    border-radius:7px;
+    font-size:.92rem;
+  }
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 270px;
+    gap:32px;
+    margin-top:34px;
+    align-items:start;
+  }
+  article{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:46px 54px 62px;
+    box-shadow:var(--shadow);
+    min-width:0;
+  }
+  nav{
+    position:sticky;
+    top:22px;
+    background:rgba(255,253,249,.95);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 19px;
+    box-shadow:0 10px 35px rgba(44,34,24,.05);
+    backdrop-filter:blur(8px);
+  }
+  nav h2{
+    font-size:.88rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    margin:0 0 9px;
+    color:var(--muted);
+    border:0;
+    padding:0;
+  }
+  nav ol{margin:0;padding-left:1.25rem}
+  nav li{font-size:.83rem;line-height:1.55;margin:.4rem 0}
+  nav a{text-decoration:none;color:#47423c}
+  nav a:hover{color:var(--accent)}
+  article h2{
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    font-size:1.75rem;
+    line-height:1.45;
+    margin:3.4rem 0 1.15rem;
+    padding-top:.25rem;
+    border-top:1px solid var(--line);
+  }
+  article h2:first-of-type{margin-top:1.3rem;border-top:0}
+  article h3{
+    font-size:1.18rem;
+    margin:2.3rem 0 .8rem;
+    color:#38332d;
+  }
+  p{margin:1rem 0}
+  strong{font-weight:750}
+  .lead{
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    font-size:1.22rem;
+    line-height:2.05;
+  }
+  .pull{
+    margin:2rem 0;
+    padding:25px 28px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    font-size:1.35rem;
+    line-height:1.75;
+    text-align:center;
+    font-weight:700;
+  }
+  .box{
+    margin:1.7rem 0;
+    padding:18px 20px;
+    border-radius:11px;
+    background:var(--blue-soft);
+    border:1px solid #cfdeea;
+  }
+  .draft-note{
+    margin:1.7rem 0;
+    padding:15px 18px;
+    border-radius:10px;
+    background:var(--note-soft);
+    border:1px solid #eadcae;
+    color:#5c481a;
+    font-size:.88rem;
+    line-height:1.7;
+  }
+  .draft-note strong{color:#674d12}
+  .two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:1.5rem 0;
+  }
+  .card{
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    padding:18px 18px 15px;
+  }
+  .card h3{margin:0 0 .6rem;font-size:1rem}
+  .card p{font-size:.92rem;margin:.5rem 0;color:#4d4841}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1.5rem 0 2rem;
+    font-size:.88rem;
+    line-height:1.55;
+  }
+  th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+  th{font-size:.79rem;color:var(--muted);font-weight:700;background:#faf8f4}
+  .timeline{margin:1.8rem 0}
+  .timeline .step{
+    display:grid;
+    grid-template-columns:92px 1fr;
+    gap:14px;
+    padding:15px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .timeline .step:last-child{border-bottom:0}
+  .timeline .label{font-weight:800;color:var(--accent)}
+  .small{font-size:.86rem;color:var(--muted)}
+  .sources{
+    margin-top:3rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line);
+    font-size:.86rem;
+    color:#514b44;
+  }
+  .sources li{margin:.55rem 0}
+  .footer{
+    max-width:780px;
+    margin:32px auto 0;
+    color:var(--muted);
+    font-size:.82rem;
+    text-align:center;
+  }
+  @media(max-width:820px){
+    .layout{grid-template-columns:1fr}
+    nav{position:relative;top:0;order:-1}
+    .hero{padding:32px 28px}
+    article{padding:34px 27px 48px}
+    .two{grid-template-columns:1fr}
+  }
+  @media print{
+    body{background:white}
+    .page{padding:0}
+    .hero,article,nav{box-shadow:none}
+    nav{display:none}
+    .layout{display:block}
+    .hero,article{border:0}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="hero">
+    <span class="badge">仮稿</span>
+    <span class="badge gray">個人閲覧用</span>
+    <h1>野球ゲームの彼女ルートに、<br>世界史を隠すな。<br>――パワポケの「二つの裏」</h1>
+    <p class="subtitle">2026年9月5日時点の調査をもとにした、公開前の読み物版ドラフト</p>
+    <div class="warning">
+      <strong>重大なネタバレを含みます。</strong><br>
+      『パワプロクンポケット』1〜14、とくに10〜14の彼女候補・組織・真ルート・エンディングに触れます。
+      また、組織史の一部は現在も公式攻略本等で再検証中です。
+    </div>
+  </header>
+
+  <div class="layout">
+    <article>
+      <p class="lead">
+        野球ゲームで彼女候補を攻略していた。<br>
+        ところが最後まで追ったら、恋愛の話より先に、巨大企業の政変と人体改造と時間犯罪の話を聞かされた。
+      </p>
+
+      <p class="lead">『パワプロクンポケット』では、わりと普通に起きることである。</p>
+
+      <p>
+        パワポケはよく、「彼女がひどい目に遭う野球ゲーム」と紹介される。
+        武美、さら、パカーディ・ハイネン。発売から長い時間が過ぎても、彼女たちの強烈な結末はネットで語られ続けている。
+      </p>
+
+      <p>
+        それ自体は、間違っていない。パワポケには、子ども向けの携帯ゲーム機で出ていた野球ゲームとは思えないほど、
+        しんどい話も、嫌な話も、救いのない話もある。
+      </p>
+
+      <p>
+        でも、私がいま布教したいのは「こんなに鬱です」という話ではない。
+      </p>
+
+      <div class="pull">本当に変なのは、<br>なぜ彼女候補を攻略すると「世界史」が出てくるのか、というほうだ。</div>
+
+      <h2 id="two-unders">1. パワポケには、二つの「裏」がある</h2>
+
+      <p>
+        ここでいう一つ目の「裏」は、表サクセスの裏側で、作品をまたいで進み続ける歴史だ。
+      </p>
+
+      <p>
+        プロペラ団。オオガミ。ジャジメント。ツナミ。未来からの介入。サイボーグ技術。超能力。時間犯罪。
+        主人公が甲子園やプロ野球を目指している横で、企業や秘密組織や未来人が、世界の支配構造を少しずつ変えている。
+      </p>
+
+      <p>
+        そして、もう一つは文字どおりメニュー画面に存在する「裏サクセス」だ。
+      </p>
+
+      <p>
+        忍者たちの国取り。大正風の帝都を歩く冒険探偵。宇宙人に占領された町のサバイバル。
+        秘密結社のダークファンタジーRPG。大海原を進む航海と海戦。
+      </p>
+
+      <div class="two">
+        <div class="card">
+          <h3>物語の「裏」</h3>
+          <p>彼女ルートや追加イベントの奥で見えてくる、1〜14をまたぐ連続史。</p>
+        </div>
+        <div class="card">
+          <h3>ゲームの「裏」</h3>
+          <p>毎年ジャンルまで変えながら育っていった、もう一本のゲームとしての裏サクセス。</p>
+        </div>
+      </div>
+
+      <p>
+        パワポケは、同じカートリッジの中で<strong>世界史と別ゲームを同時に進めていた</strong>。
+        この二つを一緒に見ると、シリーズの異常さが「残酷なイベントがある」だけでは説明できなくなる。
+      </p>
+
+      <h2 id="hidden">2. 「世界史を隠す」は、比喩ではない</h2>
+
+      <p>
+        このタイトルは、少し大げさな言い回しとして付けたわけではない。
+      </p>
+
+      <p>
+        開発者は、後年のインタビューで『1』から『14』まで世界観と歴史がつながっていると説明している。
+        その一方で、後半作品では、過去作を知らないプレイヤーが普通に遊ぶぶんには、
+        ややこしいつながりを正面から見せず、彼女ルートなど深い場所へ置く作りにしたという。
+      </p>
+
+      <p>
+        要するに、シリーズを追っている人だけが「そういうことだったのか」と気づける情報を、
+        メインストーリーの表面から一段奥へ押し込んだ。
+      </p>
+
+      <p>しかも、実際のゲームを見ると、本当に鍵がかかっている。</p>
+
+      <h3>『11』――追加イベントを開けると、企業の世界史が始まる</h3>
+
+      <p>
+        『パワポケ11』では、神条紫杏に関わる追加イベントとして
+        「巨頭、合併へ」「全世界ジャジメント会議」「ツナミの由来」などが記録されている。
+        さらに、「6人組」の真相へ進むイベントには、追加イベントの購入、過去のプレイ実績、
+        登録選手数など、いくつもの条件が設定されている。
+      </p>
+
+      <p>
+        普通に新球団ナマーズで野球をするだけでは、全部が正面から説明されるわけではない。
+        何度も遊び、別の場所をうろつき、イベントを開けて初めて、カメラが主人公の外側へ回る。
+      </p>
+
+      <h3>『12』――ゲーム自身が「事件の背景を知りたい？」と聞いてくる</h3>
+
+      <p>
+        『パワポケ12』は、もっと露骨だ。
+      </p>
+
+      <p>
+        表サクセスで何人か選手を登録したあと、ゲーム開始時に
+        <strong>「むしろ事件の背景を知りたい」</strong>という選択肢が出現する。
+        これを選ぶことで、犬井灰根、大神博之、上守甲斐など、
+        普通の野球シナリオだけでは前面に出ない人物たちの背景へアクセスできる。
+      </p>
+
+      <div class="box">
+        「前作を知らなくても遊べるように、深い歴史を奥へ隠した」という開発者の説明を、
+        ゲーム側がそのままUIにしたような仕組みである。
+      </div>
+
+      <h3>『13』――彼女と付き合うだけでも、まだ足りない</h3>
+
+      <p>
+        『13』では、木村冴花のルートを深く進めたうえで、過去の別イベントを見ている場合にだけ、
+        「ミスター」に関する話へ踏み込む追加選択肢が現れる。
+      </p>
+
+      <p>
+        さらに、別ルートのアルバム登録やクリア回数によって、
+        ホンフーやジオットに関する追加場面まで増える。
+      </p>
+
+      <p>
+        彼女候補を攻略するだけではなく、<strong>ほかのエンドを見た履歴と周回数そのものが、
+        世界史を読むための鍵</strong>になる。
+      </p>
+
+      <h3>『14』――シリーズの終点まで、真ルートの奥にある</h3>
+
+      <p>
+        最終作『14』の真ルートは、そもそも事前に特定のエンドを登録していないと進めない。
+        天月紗矢香のトゥルーエンドにも事前クリア条件があり、その最深部で
+        ジャジメント、ジオット軍との戦争、そして「カタストロフ」へ行き着く。
+      </p>
+
+      <div class="pull">パワポケの裏社会史は、<br>シナリオ上隠れているだけではない。<br>システム上も鍵がかけられている。</div>
+
+      <h2 id="canon">3. だから「正史」は、ひとつの彼女ルートでは語れない</h2>
+
+      <p>
+        パワポケを長く追うと、どうしても「結局、誰のルートが正史なのか」という話になる。
+      </p>
+
+      <p>
+        でも、このシリーズを読むうえで、私はそこを最初から固定しないほうがいいと思っている。
+      </p>
+
+      <p>
+        開発者側にも「次の作品を見ると、前作がだいたいどう続いたのか分かる」という考え方があった一方で、
+        『14』主人公の母親のように、開発側に想定があっても、過去の彼女候補に思い入れがあるプレイヤーを考慮して
+        あえて明言しなかったケースがある。
+      </p>
+
+      <p>
+        だからこの記事で追う「正史」は、
+        「この彼女と付き合ったプレイだけが唯一の正解」という意味ではない。
+      </p>
+
+      <div class="box">
+        <strong>本記事でいう正史：</strong><br>
+        後の作品でも人物の生死、組織の変化、事件の結果などが引き継がれ、
+        シリーズ内の歴史として成立していると確認できる出来事の流れ。
+      </div>
+
+      <p>
+        たとえば、ある彼女ルートの中で起きた事件の一部が、次回作でも「起きたこと」として扱われる。
+        そういう断片をつないでいくと、一本の巨大な歴史が見えてくる。
+      </p>
+
+      <h2 id="history">4. プロペラ団からカタストロフまで――12年かけて膨らんだ裏社会</h2>
+
+      <h3>第一幕：『1』〜『3』――プロペラ団三部作</h3>
+
+      <p>
+        初代から『3』までは、開発者自身が「プロペラ団三部作」と振り返っている。
+      </p>
+
+      <p>
+        最初は、野球や選手を裏から操る怪しい秘密組織だった。
+        ところが『3』になると、主人公自身がサイボーグとして蘇生される。
+        「敵が持っている怪しい技術」の話だったものが、主人公の身体と生存そのものへ侵入してくる。
+      </p>
+
+      <p>
+        そして、パワポケの長編性が本当におもしろくなるのは、悪の組織を倒したあとだ。
+      </p>
+
+      <p>
+        組織は壊せても、技術は消えない。研究成果も、人材も、資金も、思想も消えない。
+        プロペラ団が退場したあとも、その遺産は次の時代へ流れ込んでいく。
+      </p>
+
+      <div class="draft-note">
+        <strong>仮整理：</strong>
+        プロペラ団崩壊後の資産・技術が大神美智男とオオガミへどう移ったかは、
+        現時点ではファン側の横断整理への依存が残る。公開前に公式攻略本・ゲーム内イベントでさらに詰める。
+      </div>
+
+      <h3>第二幕：『4』〜『8』――悪の技術が、企業と未来につながる</h3>
+
+      <p>
+        『5』以降、シリーズの裏側でオオガミが大きな存在になっていく。
+        そして『6』では、未来から来た人物と時間への干渉が、物語のルールとしてはっきり登場する。
+      </p>
+
+      <p>
+        ここでシリーズのスケールが変わる。
+      </p>
+
+      <p>
+        問題はもう、「悪の秘密基地を壊せば終わり」ではない。
+        危険な技術を誰が所有するのか。未来の人間が現在へ介入していいのか。
+        強すぎる力を、企業が、国家が、ヒーローが、誰の名のもとに管理するのか。
+      </p>
+
+      <h3>第三幕：『9』〜『11』――オオガミ対ジャジメント、そして合併</h3>
+
+      <p>
+        やがてオオガミは、世界規模の資本を持つジャジメントとぶつかる。
+      </p>
+
+      <p>
+        普通の物語なら、巨大組織Aと巨大組織Bが戦えば、どちらかが勝って終わる。
+      </p>
+
+      <p>パワポケは、もっと嫌な答えを出す。</p>
+
+      <div class="pull">二つをくっつけて、<br>もっと巨大な組織にする。</div>
+
+      <p>
+        『11』には、実際に「ジャジメントとオオガミの合併」というイベントが記録されている。
+        その先で、巨大な再編組織としてツナミが姿を現す。
+      </p>
+
+      <p>
+        ここで重要なのが神条紫杏だ。
+      </p>
+
+      <p>
+        『10』では彼女候補だったはずの人物を追っていくと、その余波が『11』で世界規模企業の再編へつながる。
+        恋愛ルートの向こう側に、次回作の世界情勢が置かれている。
+      </p>
+
+      <p>
+        パワポケの彼女候補は、恋愛対象であると同時に、シリーズの歴史へアクセスするための観測窓でもあった。
+      </p>
+
+      <h3>第四幕：『11』〜『12』――未来から来たミスターKと「6人組」</h3>
+
+      <p>
+        ここで出てくる「6人組」を、「6人の未来人」と理解すると話を間違える。
+      </p>
+
+      <p>
+        現在の整理では、中心にいるのは未来から来たミスターK。
+        彼が現代側の重要人物たちを組織したものとして「6人組」が語られる。
+      </p>
+
+      <p>
+        彼らが目指していたのは、単純な世界征服ではない。
+        ファン側の横断整理では、未来に起きる破局――カタストロフ――を避けるため、
+        世界の巨大勢力を一つにまとめ、その力で歴史を制御しようとしたものとして説明される。
+      </p>
+
+      <div class="draft-note">
+        <strong>仮整理：</strong>
+        「6人組」の6名の厳密な一覧、一撃計画の具体的手順・犠牲規模は、現在も公式攻略本等で再検証中。
+        公開稿では確度に合わせて表現を調整する。
+      </div>
+
+      <h3>第五幕：『12』〜『14』――救済のための組織が、破局を起こす</h3>
+
+      <p>
+        後期の中心に立つのが、ジオット・セヴェルスだ。
+      </p>
+
+      <p>
+        現時点の整理では、「6人組」側の構想には、将来のもっと大きな破局を避けるために、
+        人為的な危機を起こしつつ、最後は失敗させるという安全装置があった。
+      </p>
+
+      <p>
+        ところが、ジオットはその「失敗させる前提」を受け入れない。
+      </p>
+
+      <p>
+        人類を救うために作られた巨大組織が、いつの間にか、
+        自らカタストロフを起こす側へ反転していく。
+      </p>
+
+      <p>
+        『1』で「野球を裏から操る秘密結社」だった話は、
+        『14』では世界規模の組織と人類の破局をめぐる話にまで膨らんだ。
+      </p>
+
+      <p>
+        敵組織が作品ごとに大きくなっただけではない。
+        前の作品で残された技術、人材、恨み、救済思想が、
+        次の作品で別の形になって戻ってくる。
+      </p>
+
+      <p>
+        これが、パワポケを一作品ずつの変な野球ゲームとしてではなく、
+        十二年以上続いた連続ドラマとして読むおもしろさだと思う。
+      </p>
+
+      <h2 id="heroines">5. 彼女候補が怖いのは、バッドエンドが残酷だからだけではない</h2>
+
+      <p>
+        もちろん、パワポケの彼女候補は強烈だ。
+      </p>
+
+      <p>
+        パカーディ・ハイネンのバッドエンドは、とくに有名だろう。
+        でも、あの一枚絵だけを「子ども向け野球ゲームのトラウマ」として消費すると、
+        一番おもしろい部分を取り逃がす。
+      </p>
+
+      <p>
+        なぜ彼女がそんな状況に追い込まれるのか。
+      </p>
+
+      <p>
+        そこをたどると、恋愛ではなく、政治、復讐、カエサリオン、ジオット、
+        巨大組織の抗争へ行き着く。
+      </p>
+
+      <p>
+        神条紫杏は、さらに分かりやすい。
+        『10』の彼女候補でありながら、彼女の物語を掘ることが、そのまま『11』の世界情勢を読む準備になる。
+      </p>
+
+      <p>
+        木村冴花は、「彼女ルートを深く掘ると黒幕側が見える」というゲーム構造そのものの例だ。
+      </p>
+
+      <p>
+        天月紗矢香は、最終作でその構造を最後まで引き受ける。
+        彼女のトゥルーの先に、シリーズの終点であるカタストロフが置かれている。
+      </p>
+
+      <p>
+        パワポケの彼女候補が怖いのは、死ぬからでも、ひどい目に遭うからでもない。
+      </p>
+
+      <div class="pull">恋愛ルートのつもりで進むと、<br>世界の仕組みまで見えてしまうことだ。</div>
+
+      <h2 id="ura">6. もう一つの「裏」――裏サクセスは、普通にもう一本のゲームである</h2>
+
+      <p>
+        ここまでが「物語の裏」。
+      </p>
+
+      <p>
+        そしてパワポケには、もう一つ、本当に「裏」と呼ばれるものがある。
+      </p>
+
+      <p>こっちは設定資料ではない。</p>
+
+      <p><strong>普通にもう一本のゲームである。</strong></p>
+
+      <p>
+        私がとくに好きなのは、『5』『7』『11』『12』『13』の裏サクセスだ。
+      </p>
+
+      <p>
+        これは単なる好みの五本でもあるのだが、発売順に並べると、
+        パワポケ開発陣が「野球ゲームの中でもう一本、別のゲームを作る」ことに
+        どんどん本気になっていく過程が見えてくる。
+      </p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="label">『5』</div>
+          <div><strong>忍者戦国編：</strong>国取りシミュレーション。陣営を選び、領地を奪い、戦力を管理する。</div>
+        </div>
+        <div class="step">
+          <div class="label">『7』</div>
+          <div><strong>大正冒険奇譚編：</strong>小さな依頼をこなして大きな物語へ進む、クエスト型冒険。</div>
+        </div>
+        <div class="step">
+          <div class="label">『11』</div>
+          <div><strong>怪奇！ハタ人間編：</strong>探索、装備、仲間編成を備えた学園サバイバルRPG。</div>
+        </div>
+        <div class="step">
+          <div class="label">『12』</div>
+          <div><strong>秘密結社編：</strong>『11』の戦闘系と『7』のクエスト構造を融合。</div>
+        </div>
+        <div class="step">
+          <div class="label">『13』</div>
+          <div><strong>海洋冒険編：</strong>航海、資源管理、海戦、リアルタイム性へ拡張した集大成。</div>
+        </div>
+      </div>
+
+      <h3>『5』――裏サクセスが「別ゲーム」になり始める</h3>
+
+      <p>
+        『5』の忍者戦国編では、前作のRPG路線から一転して、国取りシミュレーションになる。
+        開発者自身も、この頃から裏サクセスへかなり力が入ってきたと振り返っている。
+      </p>
+
+      <p>
+        下忍を消費する非人道的な作戦を多用すると、それに応じた嫌な結末が用意されているのもパワポケらしい。
+        ゲーム上は便利でも、人としてそれをやっていいのか、というズレを平気で突いてくる。
+      </p>
+
+      <h3>『7』――「依頼を受ける」という発明</h3>
+
+      <p>
+        大正冒険奇譚編では、小さなクエストをこなすことで全体の物語が進む構造が試された。
+      </p>
+
+      <p>
+        この発想は、その場限りでは終わらない。
+        数年後、『12』秘密結社編で、『11』の戦闘システムと合流する。
+      </p>
+
+      <h3>『11』――裏サクセスが表を食い始める</h3>
+
+      <p>
+        怪奇！ハタ人間編は、町を探索し、仲間を集め、装備を整え、異常化した人々から逃げ、
+        夜を越えるサバイバルRPGだ。
+      </p>
+
+      <p>
+        開発スタッフが、裏サクセスの制作で忙しすぎて表サクセスの記憶が薄いと振り返るほど、
+        制作比重が大きかった。
+      </p>
+
+      <p>
+        「野球選手を作るためのおまけ」という説明が、このあたりから完全に苦しくなる。
+      </p>
+
+      <h3>『12』――表を決める前に、裏の会議を20回やる</h3>
+
+      <p>
+        『12』はもっとおかしい。
+      </p>
+
+      <p>
+        開発者の振り返りによれば、企画会議は全33回。
+        詳細な説明では、最初の20回を裏サクセスの話に使い、
+        21回目でようやく表サクセスの案出し、22回目に「電脳編」が決まった。
+      </p>
+
+      <div class="box">
+        「余った時間で作ったおまけ」と呼ぶには、優先順位がおかしい。
+      </div>
+
+      <p>
+        システムとしても、『11』をベースに『7』のクエスト構造を混ぜ、
+        開発者が「戦闘システムはここで完成した感覚」と語るところまで行く。
+      </p>
+
+      <h3>『13』――完成したから、壊して海へ出る</h3>
+
+      <p>
+        『13』の海洋冒険編は、完成した仕組みをそのまま繰り返さない。
+      </p>
+
+      <p>
+        戦闘をリアルタイム寄りに変え、回復資源を制限し、
+        船同士の位置取りを意識する海戦へ拡張する。
+        シナリオの下敷きにはマゼランの航海まで入る。
+      </p>
+
+      <p>
+        開発者自身も、裏サクセスを「これまでの集大成的」と振り返っている。
+      </p>
+
+      <div class="pull">『5』で領地を奪い、<br>
+      『7』で依頼を受け、<br>
+      『11』で町を探索し、<br>
+      『12』で戦闘とクエストを接続し、<br>
+      『13』で世界の海へ出た。</div>
+
+      <p>
+        裏サクセスとは、毎年一本ずつ続いていたゲーム開発の実験記録だったのだと思う。
+      </p>
+
+      <h2 id="why-baseball">7. なぜ「野球ゲーム」だから、こんなことができたのか</h2>
+
+      <p>
+        これだけ自由なら、最初からRPGシリーズを作ればよかったのではないか。
+      </p>
+
+      <p>
+        でも、たぶん逆だ。
+      </p>
+
+      <p>
+        パワポケは、表サクセスでは最後に野球へ戻らなければならない。
+        高校なら甲子園へ行く。プロなら試合をする。社会人なら野球部を存続させる。
+      </p>
+
+      <p>
+        その強い制約があるからこそ、裏サクセスでは開発陣が「好きなことをやる」余地が生まれた。
+      </p>
+
+      <p>
+        実際、開発者は、表は最後に野球へつなげなければいけないが、
+        裏は好きなことができたのでスタッフも乗り気だったと振り返っている。
+      </p>
+
+      <p>
+        野球という重力があるから、裏は好きなだけ遠くへ飛べる。
+      </p>
+
+      <p>
+        しかも、それをほぼ毎年の発売サイクルで繰り返していた。
+      </p>
+
+      <p>
+        忍者、宇宙、ホラー、ダークファンタジー、航海。
+        普通なら別タイトルで出すような企画を、
+        「今年のパワポケの裏です」で一つのシリーズへ詰め込んでいく。
+      </p>
+
+      <p>
+        この雑食性こそ、私はパワポケの一番好きなところかもしれない。
+      </p>
+
+      <h2 id="recommend">8. いま一本だけ布教するなら</h2>
+
+      <p>
+        裏社会史を最初から全部追えと言われたら、正直かなり重い。
+      </p>
+
+      <p>
+        初代から14まで、ほぼ毎年発売されていたシリーズだ。
+        しかも、本当においしい設定が周回や彼女ルートの奥にある。
+      </p>
+
+      <p>
+        だから「この記事を読んだ人に一本だけ渡す」なら、私は『13』を選ぶと思う。
+      </p>
+
+      <p>
+        客観的にシリーズ最高傑作だ、と言いたいわけではない。
+      </p>
+
+      <p>
+        ただ、表サクセスは王道の高校野球として強く、
+        裏サクセスは航海RPGとして一本立ちしていて、
+        それでいてシリーズ後期の世界史も深いところに眠っている。
+      </p>
+
+      <p>
+        パワポケが「野球ゲームであること」と「野球ゲームでなくてもいいこと」を、
+        一番気持ちよく同居させている一本だからだ。
+      </p>
+
+      <p class="small">
+        ※プレイ順・現在遊ぶ手段・Rを入口にするかどうかは、公開稿で別途整理予定。
+      </p>
+
+      <h2 id="ending">9. 「彼女がひどい目に遭う野球ゲーム」で終わらせたくない</h2>
+
+      <p>
+        パワポケを「彼女がひどい目に遭う野球ゲーム」と呼ぶのは、間違っていない。
+      </p>
+
+      <p>
+        たぶん、その一言がなければ、このシリーズを知らない人に振り向いてもらうのも難しい。
+      </p>
+
+      <p>
+        でも、それは入口にすぎない。
+      </p>
+
+      <p>
+        彼女ルートの奥には、作品をまたいで受け渡された世界史がある。
+        しかも、その歴史は、何周も遊んで初めて見える場所に隠されている。
+      </p>
+
+      <p>
+        メニュー画面のもう一つの「裏」では、毎年のように別ジャンルのゲームが作られていた。
+      </p>
+
+      <p>
+        企業陰謀、サイボーグ、時間犯罪、ヒーロー、秘密結社、忍者、ゾンビ、魔族、海賊。
+      </p>
+
+      <p>
+        全部、同じシリーズに入っている。
+      </p>
+
+      <div class="pull">このシリーズの異常さは、残酷さだけではない。<br>
+      <strong>野球ゲームのポケットに、全部入れようとしたことにある。</strong></div>
+
+      <p>
+        だから私は、いまパワポケを布教するなら、バッドエンドの画像だけを並べるのではなく、
+        その奥に隠された二つの「裏」まで見せたい。
+      </p>
+
+      <p>
+        野球ゲームの彼女ルートに、世界史を隠すな。
+      </p>
+
+      <p>
+        ……いや、やっぱり隠してくれてよかったのかもしれない。
+      </p>
+
+      <p>
+        何周もして、ようやく見つけたときに、
+        「なんでこんなところにこんな話が入っているんだ」と笑うところまで含めて、
+        パワポケだったから。
+      </p>
+
+      <section class="sources">
+        <h2 id="draft-status">仮稿メモ：公開前に詰めるところ</h2>
+        <ul>
+          <li>プロペラ団崩壊後の技術・資産がオオガミへ移る厳密な経路。</li>
+          <li>「6人組」6名の一次寄り資料での再確認。</li>
+          <li>一撃計画の具体的な内容、大神博之の拒否、ジオットの「やらせ」拒否の厳密な表現。</li>
+          <li>『14』カタストロフの技術的説明と、後日談でのジャジメント解体。</li>
+          <li>神条紫杏の『10』→『11』で、どの出来事を「後作確定」と言えるかのイベント単位整理。</li>
+          <li>パカーディ・ハイネンのグッド側も含めた、裏社会史としての位置づけ。</li>
+        </ul>
+
+        <h3>主要参照先</h3>
+        <ol>
+          <li><a href="https://news.denfaminicogamer.jp/interview/210225z/2">電ファミニコゲーマー（2021）開発者インタビュー</a></li>
+          <li><a href="https://news.denfaminicogamer.jp/interview/220106a/2">電ファミニコゲーマー（2022）シリーズ振り返り・2</a></li>
+          <li><a href="https://news.denfaminicogamer.jp/interview/220106a/3">同・3</a></li>
+          <li><a href="https://news.denfaminicogamer.jp/interview/220106a/4">同・4</a></li>
+          <li><a href="https://www.famitsu.com/news/202112/05241794.html">ファミ通（2021）パワポケR発売記念アンケート</a></li>
+          <li><a href="https://w.atwiki.jp/poke11/pages/54.html">パワポケ11攻略まとめ：神条紫杏</a></li>
+          <li><a href="https://w.atwiki.jp/poke12/pages/53.html">パワポケ12攻略まとめ：事件の背景</a></li>
+          <li><a href="https://w.atwiki.jp/poke13/pages/58.html">パワポケ13攻略まとめ：木村冴花</a></li>
+          <li><a href="https://w.atwiki.jp/poke14/pages/97.html">パワポケ14攻略まとめ：真ルート</a></li>
+          <li><a href="https://w.atwiki.jp/poke14/pages/110.html">パワポケ14攻略まとめ：天月紗矢香（真ルート）</a></li>
+        </ol>
+        <p class="small">
+          ※攻略Wikiはゲーム内イベントの存在・条件を確認するための記録として使用。
+          複数作品をまたぐ因果関係は、公開前に公式攻略本・ゲーム内記録へさらに寄せる。
+        </p>
+      </section>
+    </article>
+
+    <nav aria-label="目次">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#two-unders">二つの「裏」</a></li>
+        <li><a href="#hidden">「世界史を隠す」は比喩ではない</a></li>
+        <li><a href="#canon">「正史」の扱い</a></li>
+        <li><a href="#history">裏社会史</a></li>
+        <li><a href="#heroines">彼女候補という観測窓</a></li>
+        <li><a href="#ura">裏サクセス進化史</a></li>
+        <li><a href="#why-baseball">なぜ野球ゲームなのか</a></li>
+        <li><a href="#recommend">一本だけ布教するなら</a></li>
+        <li><a href="#ending">結論</a></li>
+        <li><a href="#draft-status">公開前の課題</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <footer class="footer">
+    非公式ファン記事・仮稿。作品名・キャラクター名等に関する権利は各権利者に帰属します。<br>
+    このHTMLは2026年9月5日時点の個人閲覧用ドラフトです。
+  </footer>
+</div>
+</body>
+</html>
