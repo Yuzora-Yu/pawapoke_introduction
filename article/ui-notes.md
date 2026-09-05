@@ -58,3 +58,31 @@ Tipsを別レイヤーにすることで、
 - 本文を人物辞典化しすぎない
 
 という両立ができる。
+
+---
+
+# Web Design Director準拠の実装制約
+
+## Central concept
+
+> **インディーゲーム雑誌の長文特集 × ファン研究資料庫**
+
+右側Tipsは「SaaSの補助カード」ではなく、雑誌の欄外注釈・人物索引・資料カードのように見せる。
+
+## 長文可読性
+- 本文幅は日本語35〜45字/行程度を基準。
+- line-height 1.7〜2.0。
+- PCでも本文を横に広げすぎない。
+
+## Accessibility
+- Tips triggerはbuttonまたは同等にkeyboard操作可能なnative要素を使用。
+- visible focusを付ける。
+- mobile modalはEscapeで閉じられ、focusを開いた元へ戻す。
+- touch targetは44px程度以上。
+- reduced motion設定時はtransition/animationを止めるか最小化。
+
+## QA
+- 320 / 768 / wide desktopで確認。
+- skip linkを実装。
+- sticky Tipsとanchor scrollが干渉しないようscroll offsetを定義。
+- horizontal overflow、長い人物名、長い見出しを確認。
